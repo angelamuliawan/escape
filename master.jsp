@@ -15,21 +15,11 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-		<!-- Bootstrap -->
-		<link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-		<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-		<link href="assets/bootstrap/css/docs.css" rel="stylesheet" media="screen">
-		<!-- Jquery -->
-		<script src="assets/js/jquery.js"></script>
-		<script src="assets/js/jquery-1.9.js"></script>
-        
-        <script src="assets/js/jquery.min.js"></script>
-        
-		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap-modal.js"></script>  
-		
-
+	<link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+	<link href="assets/bootstrap/css/docs.css" rel="stylesheet" media="screen">
+	
   </head>
 
   <body data-spy="scroll" data-target=".bs-docs-sidebar" id="pageBody" class="animated fadeInDown">
@@ -148,10 +138,29 @@
 		</div>
         </form>
 	</div>
-    
+
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap-typeahead.js"></script>
+    <script src="assets/js/bootstrap-affix.js"></script>
+
+    <script src="assets/js/holder/holder.js"></script>
+    <script src="assets/js/google-code-prettify/prettify.js"></script>
+    <script src="assets/js/application.js"></script>
+   
+
     <script type="text/javascript">
-	
-		$("#btnLogin").live("click", function()
+		$("body").on("click", "#btnLogin", function()
 		{
 			var username = $("#txtUsername").val();
 			var password = $("#txtPassword").val();
@@ -171,7 +180,5 @@
 				window.location.href = "do/dologin.jsp?txtUsername=" + username + "&txtPassword=" + password;
 			}
 		});
-		
-	
     </script>
    
