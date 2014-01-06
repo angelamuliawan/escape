@@ -19,11 +19,11 @@
 			{
 			promo = rs.getInt("ispromo");
 			%>
-			<div class="span7 tour-content">
+			<div class="span9 tour-content">
 				<div class="span3">
 					<img src="assets/img/tourimage/<%=i%>.jpg" style="width:160px;height:200px;">
 				</div>
-				<div class="span4">
+				<div class="span6">
 					<p style="display:none;">
 						<%=rs.getString("tourid")%>
 					</p>

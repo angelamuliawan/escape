@@ -13,6 +13,7 @@
 		while(rs.next())
 		{
 	%>
+	
 		<h3>
 			<%=rs.getString("title")%>
 		</h3>

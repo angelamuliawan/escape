@@ -41,19 +41,22 @@
 			%>
 
 			 	<div class="span4 line">
-				  	<h3 style="color:#ff9a25"><%=rs.getString("hotelname")%></h3>
-					<img class="marketing-img" src="<%=rs.getString("hotelimage")%>" style="width:220px;height:250px;">
-					<h5 style="color:#ff9a25"><%=rs.getString("cityname")%> - <%=rs.getString("countryname")%> 
-						<%if(rs.getInt("ispromo") == 1) out.print("<label style='color:red; display:inline;' class='blink'>IN PROMO</label>");%>
-					</h5>
-					<p>
-						<%
-							for(int j = 0; j<numstar; j++) out.print("<img src='assets/img/icon/Star.png' width='20' height='20' style='display:inline'>");
-							
-						%><br>
-						<%=rs.getString("description")%>
-					</p>
-					<input type="submit" class="btn btn-primary" value="View Detail Class Hotel" />
+			 		<form method="post" action="hoteldetail.jsp">
+			 			<input type="text" value="<%=rs.getString("hotelid")%>" style="display:none;" name="hotelid" />
+					  	<h3 style="color:#ff9a25"><%=rs.getString("hotelname")%></h3>
+						<img class="marketing-img" src="<%=rs.getString("hotelimage")%>" style="width:220px;height:250px;">
+						<h5 style="color:#ff9a25"><%=rs.getString("cityname")%> - <%=rs.getString("countryname")%> 
+							<%if(rs.getInt("ispromo") == 1) out.print("<label style='color:red; display:inline;' class='blink'>IN PROMO</label>");%>
+						</h5>
+						<p>
+							<%
+								for(int j = 0; j<numstar; j++) out.print("<img src='assets/img/icon/Star.png' width='20' height='20' style='display:inline'>");
+								
+							%><br>
+							<%=rs.getString("description")%>
+						</p>
+						<input type="submit" class="btn btn-primary" value="View Detail Class Hotel" />
+					</form>
 			  	</div>
 			  	<% if(i!=0 && i%3==0) out.print("<div style='clear:both'/>"); %>
 			<%
