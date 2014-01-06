@@ -80,7 +80,7 @@
 				  		<td><%=rs.getString("date")%></td>
 				  		<td> <%=rs.getString("time")%></td>
 				  		<td><%=rs.getString("capacity")%></td>
-				  		<td><input type="submit" class="btn btn-primary" value="Buy Ticket" /></td>
+				  		<td><a href="buyticket.jsp" class="btn btn-primary">Buy Ticket</a></td>
 				  	</tr>
 			<%
 				}
