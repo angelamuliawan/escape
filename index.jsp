@@ -65,7 +65,7 @@
 								<div class="control-group ">
 									<label class="control-label">Date</label>
 									<div class="controls">
-										<input type="date" name="dateFlight" placeholder="Date" />
+										<input type="text" class="dateinput" name="dateFlight" placeholder="Date" />
 									</div>
 								</div>
 								<div align="center" style="margin-left:-80px;">
@@ -242,3 +242,9 @@
 
 
 <%@ include file="footer.jsp" %>
+
+<script type="text/javascript">
+	$(".dateinput").on('mouseover',function(data){
+			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
+		});
+</script>

@@ -19,6 +19,7 @@
 	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
 	<link href="assets/bootstrap/css/docs.css" rel="stylesheet" media="screen">
+	<link href="assets/bootstrap/css/datepicker.css" rel="stylesheet">
 	
   </head>
 
@@ -99,9 +100,6 @@
     
 	<div id="mdlLogin" class="modal hide fade" tabindex="-1" role="dialog">
     
-        <script type="text/javascript">$('#mdlLogin').modal('show');</script>
-		
-        
         <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">X</button>
 			<h3 id="myModalLabel">Customer Login</h3>
@@ -153,6 +151,7 @@
     <script src="assets/js/bootstrap-carousel.js"></script>
     <script src="assets/js/bootstrap-typeahead.js"></script>
     <script src="assets/js/bootstrap-affix.js"></script>
+	<script src="assets/js/bootstrap-datepicker.js"></script>
 
     <script src="assets/js/holder/holder.js"></script>
     <script src="assets/js/google-code-prettify/prettify.js"></script>
@@ -160,6 +159,9 @@
    
 
     <script type="text/javascript">
+	
+		//('#mdlLogin').modal('show');
+	
 		$("body").on("click", "#btnLogin", function()
 		{
 			var username = $("#txtUsername").val();
