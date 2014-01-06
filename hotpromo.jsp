@@ -20,12 +20,9 @@
 				<div class="span4">
 					<img src="assets/<%=rs.getString("ImageURL")%>" style="width:250px;height:200px;">
 				</div>
-				<div class="span8">
-					<p style="display:none;">
-						<%=rs.getString("PromoAndEventID")%> 
-					</p>
+				<div class="span8" style="text-align:left">
 					<p>
-						<h3><%=rs.getString("Title")%></h3>
+						<a href="promodetail.jsp?id=<%=rs.getString("PromoAndEventID")%> "><h3><%=rs.getString("Title")%></h3></a>
 					</p>
 					<p>
 						 <%=rs.getString("ActiveDate")%>
