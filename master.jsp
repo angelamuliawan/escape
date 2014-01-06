@@ -122,12 +122,11 @@
               <label id="error"></label>
               
               <%if(request.getParameter("err")!=null) {%> 
-              
-              
-               
-              <span class="auto-style2"><%=request.getParameter("err")%></span></form> <%}%>
+              <span class="auto-style2"><%=request.getParameter("err")%></span>
+			  <%}%>
+			  
 			  <span class="help-block" style="text-align:right;"><a href="#">Forgot Password</a></span>
-		  
+		  </form> 
 		</div>
 		<div class="modal-footer" style="margin-top:-20px;">
 			
