@@ -40,16 +40,11 @@
 				<tbody>
 
 			<%
-			String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid";
+			String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, FORMAT(date,'Long Date') as convDate, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid";
 
 			String cityfrom = request.getParameter("ddlCityFrom");
 			String citydest = request.getParameter("ddlCityDestination");
 			String dateflight = request.getParameter("dateFlight");
-
-			//out.print(cityfrom);
-			//out.print(citydest);
-			//out.print(dateflight);
-
 
 			if(cityfrom != null)
 			query +=" AND cityfromid = "+cityfrom;
@@ -83,7 +78,7 @@
 								if(promo == 1) out.print("<label style='color:red; display:inline;' class='blink'>PROMO</label>");
 							%>
 				  		</td>
-				  		<td><%=rs.getString("date")%></td>
+				  		<td><%=rs.getString("convDate")%></td>
 				  		<td> <%=rs.getString("time")%></td>
 				  		<td><%=rs.getString("capacity")%></td>
 						<td>

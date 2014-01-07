@@ -78,7 +78,7 @@
 					<legend>Flight Summary Order</legend>
 					<%
 					
-					String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid AND flightid = " + flightId;
+					String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, FORMAT(date,'Long Date') as convDate, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid AND flightid = " + flightId;
 
 					String cityfrom = request.getParameter("ddlCityFrom");
 					String citydest = request.getParameter("ddlCityDestination");
@@ -117,7 +117,7 @@
 						<div class="control-group">
 							<label class="control-label">Flight Date :</label>
 							<div class="controls form-text modified">
-								<span><%=rs.getString("date")%></span>
+								<span><%=rs.getString("convDate")%></span>
 							</div>
 						</div>
 						

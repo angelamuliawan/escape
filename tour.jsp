@@ -10,7 +10,7 @@
 		<div class="row-fluid">
 
 			<%
-			String query = "SELECT tourid, cityfromid, mcf.cityname AS CityFromName, mcd.cityname AS CityDestinationName, startdate, enddate, capacity, mt.description, price, ispromo FROM mstour AS mt, mscity as mcf, mscity as mcd where mcf.cityid=mt.cityfromid And mcd.cityid=mt.citydestinationid";
+			String query = "SELECT tourid, cityfromid, mcf.cityname AS CityFromName, mcd.cityname AS CityDestinationName, startdate, enddate, FORMAT(startdate,'Long Date') as convStartDate, FORMAT(enddate,'Long Date') as convEndDate, capacity, mt.description, price, ispromo FROM mstour AS mt, mscity as mcf, mscity as mcd where mcf.cityid=mt.cityfromid And mcd.cityid=mt.citydestinationid";
 
 			String cityfrom = request.getParameter("ddlCityFromT");
 			String citydest = request.getParameter("ddlCityDestinationT");
@@ -44,7 +44,7 @@
 						<%=rs.getString("CityFromName")%> &nbsp;-&nbsp;<%=rs.getString("CityDestinationName")%> 
 					</h4>
 					<p>
-						<%=rs.getString("startdate")%> &nbsp;-&nbsp;<%=rs.getString("enddate")%> 
+						<%=rs.getString("convStartDate")%> &nbsp;-&nbsp;<%=rs.getString("convEndDate")%> 
 					</p>
 					<p>
 						<%=rs.getString("description")%>
