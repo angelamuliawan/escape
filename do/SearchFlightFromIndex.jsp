@@ -16,7 +16,7 @@
 	out.print(destination);
 	out.print(dateofflight);
 	
-	/* String query = "select * from msuser where username='"+username+"' and password='"+password+"'"; 
+	/* String query = "select * from mscustomer where username='"+username+"' and password='"+password+"'"; 
 	ResultSet rs = st.executeQuery(query); 
 		if(rs.next()) 
 		{ 

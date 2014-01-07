@@ -3,7 +3,7 @@
 	String username = request.getParameter("txtUsername"); 
 	String password = request.getParameter("txtpassword"); 
 	
-	String query = "select * from msuser where username='"+username+"' and password='"+password+"'"; 
+	String query = "select * from mscustomer where username='"+username+"' and password='"+password+"'"; 
 	ResultSet rs = st.executeQuery(query); 
 		if(rs.next()) 
 		{ 
