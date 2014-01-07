@@ -14,18 +14,19 @@
 
 			String hotelname = request.getParameter("searchhotel");
 			String hotelcity = request.getParameter("ddlCityHotel");
-			Integer stars = Integer.parseInt(request.getParameter("ddlStars"));
-
+			String strStars = request.getParameter("ddlStars");
+			
 			if(hotelname != null)
 				query +=" AND hotelname like '%"+hotelname+"%'";
 
 			if(hotelcity != null)
 				query +=" AND mh.cityid = "+hotelcity;
 
-			if(stars != null )
+			if(strStars != null ) {
+				Integer stars = Integer.parseInt(strStars);
 				if(stars != 0)
 					query +=" AND stars = " + stars;
-				
+			}
 
 			//query += " order by stars desc, ispromo desc";
 
