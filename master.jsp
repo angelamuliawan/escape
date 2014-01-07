@@ -23,9 +23,8 @@
 	
   </head>
 
-  <body data-spy="scroll" data-target=".bs-docs-sidebar" id="pageBody" class="animated fadeInDown">
-
-
+	<body data-spy="scroll" data-target=".bs-docs-sidebar" id="pageBody" class="animated fadeInDown">
+	
     <!-- Navbar when user not sign in
     ================================================== -->
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -54,17 +53,22 @@
           			  </li>
                  <% if(session.getAttribute("username") == null || session.getAttribute("username") == "") { %>
                 <li>
-  				          <a href="register.jsp">Register</a>
+  				    <a href="register.jsp">Register</a>
   			    </li>
                 <li><!-- Button to trigger modal -->
-                  <a id="btnOpenModalLogin" data-toggle="modal" data-target="#mdlLogin" style="cursor:pointer;">Login </a>
+					<%
+						String url = request.getRequestURI().replace("/escape/","");
+						if(url.compareTo("buyticket.jsp") != 0) {
+						%>
+						<a id="btnOpenModalLogin" data-toggle="modal" data-target="#mdlLogin" style="cursor:pointer;">Login </a>
+						<% } %>
                 </li>
                 <% } else { %>
                 <li>
                 	<a>Welcome, <%= session.getAttribute("username") %></a>
                 </li>
                 <li>
-                <a href="dologout.jsp">Logout</a>
+					<a href="do/dologout.jsp">Logout</a>
   			    </li>
                 <% }%>
             </ul>
@@ -107,25 +111,20 @@
 		<div class="modal-body ">
 		  <form class="form-horizontal" action="do/dologin.jsp" method="post">
 			  <div class="control-group">
-				<label class="control-label" for="txtUsername">Username</label>
+				<label class="control-label">Username</label>
 				<div class="controls">
 					<input type="text" placeholder="Input Your Username" name="txtUsername" id="txtUsername" />
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="txtPassword">Password</label>
+				<label class="control-label">Password</label>
 				<div class="controls">
 					 <input type="password" placeholder="Input Your password" id="txtPassword" name="txtPassword"/>
 				</div>
 			  </div>
               
               <label id="error"></label>
-              
-              <%if(request.getParameter("err")!=null) {%> 
-              <span class="auto-style2"><%=request.getParameter("err")%></span>
-			  <%}%>
-			  
-			  <span class="help-block" style="text-align:right;"><a href="#">Forgot Password</a></span>
+             
 		  </form> 
 		</div>
 		<div class="modal-footer" style="margin-top:-20px;">
@@ -135,6 +134,12 @@
 		</div>
         </form>
 	</div>
+	
+	<%
+		String err = request.getParameter("err");
+		if(err != null)
+			out.print("<script type='text/javascript'>alert('"+err+"');</script>");
+	%>
 
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap-transition.js"></script>
@@ -165,7 +170,7 @@
 		{
 			var username = $("#txtUsername").val();
 			var password = $("#txtPassword").val();
-			
+
 			if(username == "") 
 			{ 
 			 	$("#error").text("Username must be filled");

@@ -13,10 +13,18 @@
 			
 			<!-- Left content login -->
 			<div class="span6">
+			
+				<%
+					// passed param
+					String flightId = request.getParameter("flightId");
+					Integer ticketquantity = Integer.parseInt(request.getParameter("ddlTicketQuantity"));
+				%>
 				
 				<% if(session.getAttribute("username") == null || session.getAttribute("username") == "") { %>
-					<form class="form-horizontal">
+					<form class="form-horizontal" action="do/dologin.jsp" method="post">
 						<legend>Login Form</legend>
+						<input type="hidden" name="flightId" value="<%=flightId%>" />
+						<input type="hidden" name="ddlTicketQuantity" value="<%=ticketquantity%>" />
 						<div class="alert alert-info">
 							Please login first before start buying ticket. If you're not a member, please <a href="register.jsp">register</a>
 						</div>
@@ -46,7 +54,7 @@
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
-								<input type="text" disabled placeholder="Input Your Username" name="txtUsername" />
+								<input type="text" disabled name="txtUsername" value="<%=session.getAttribute("username")%>" />
 							</div>
 						</div>
 						
@@ -58,7 +66,7 @@
 						</div>
 						
 						<div class="controls">
-							<button type="submit" class="btn btn-primary">Sign in</button>
+							<button type="submit" class="btn btn-primary">Buy Ticket</button>
 						</div>
 					</form>
 				<% } %>
@@ -68,42 +76,66 @@
 
 				<form class="form-horizontal">
 					<legend>Flight Summary Order</legend>
-					<div class="control-group">
-						<label class="control-label">Airlines :</label>
-						<div class="controls form-text modified">
-							<span>
-								<img src="assets/img/airlinelogo/airasia.gif" style="width:170px;height:50px;">
-							</span>
-						</div>
-					</div>
+					<%
 					
-					<div class="control-group">
-						<label class="control-label">Price :</label>
-						<div class="controls form-text modified">
-							<span>Rp. 250.000</span>
-						</div>
-					</div>
+					String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid AND flightid = " + flightId;
+
+					String cityfrom = request.getParameter("ddlCityFrom");
+					String citydest = request.getParameter("ddlCityDestination");
+					String dateflight = request.getParameter("dateFlight");
 					
-					<div class="control-group">
-						<label class="control-label">Route :</label>
-						<div class="controls form-text modified">
-							<span>Jakarta - Singapore</span>
-						</div>
-					</div>
+					ResultSet rs = st.executeQuery(query);
+					while(rs.next()) {
+					String oldticketPrice = rs.getString("ticketprice");
+					Integer ticketPrice = Integer.parseInt(oldticketPrice.replace(".",""));
+					Integer total = ticketquantity * ticketPrice;
 					
-					<div class="control-group">
-						<label class="control-label">Flight Date :</label>
-						<div class="controls form-text modified">
-							<span>2013-12-12</span>
+					%>
+						<div class="control-group">
+							<label class="control-label">Airlines :</label>
+							<div class="controls form-text modified">
+								<span>
+									<img src="<%=rs.getString("airlineimage")%>" style="width:170px;height:50px;">
+								</span>
+							</div>
 						</div>
-					</div>
-					
-					<div class="control-group">
-						<label class="control-label">Flight Time :</label>
-						<div class="controls form-text modified">
-							<span>23:00 - 24:00</span>
+						
+						<div class="control-group">
+							<label class="control-label">Price :</label>
+							<div class="controls form-text modified">
+								<span>Rp. <%=oldticketPrice%></span>
+							</div>
 						</div>
-					</div>
+						
+						<div class="control-group">
+							<label class="control-label">Route :</label>
+							<div class="controls form-text modified">
+								<span><%=rs.getString("CityFrom")%> - <%=rs.getString("CityDestination")%></span>
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label">Flight Date :</label>
+							<div class="controls form-text modified">
+								<span><%=rs.getString("date")%></span>
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label">Flight Time :</label>
+							<div class="controls form-text modified">
+								<span><%=rs.getString("time")%></span>
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label">Total :</label>
+							<div class="controls form-text modified">
+								<span>Rp. <%=total%></span>
+							</div>
+						</div>
+						
+					<% } %>
 				</form>
 			
 			</div>
