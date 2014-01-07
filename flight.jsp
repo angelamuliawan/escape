@@ -26,9 +26,14 @@
 						<th>
 							Time
 						</th>
-						
 						<th>
-							Time
+							Capacity
+						</th>
+						<th>
+							Quantity
+						</th>
+						<th>
+							Action
 						</th>
 					</tr>
 				</thead>
@@ -65,8 +70,9 @@
 				i++;
 				promo = rs.getInt("ispromo");
 			%>
-
+				<form method="GET" action="buyticket.jsp">
   				  	<tr <% if(promo == 1) out.print("class='error'");%> >
+						<input type="hidden" name="flightId" value="<%=rs.getString("flightid")%>" />
 				  		<td><img src="<%=rs.getString("airlineimage")%>" style="width:170px;height:50px;"></td>
 				  		<td>
 				  			<h4 style="color:#ff9a25"><%=rs.getString("CityFrom")%> - <%=rs.getString("CityDestination")%></h4>
@@ -80,8 +86,26 @@
 				  		<td><%=rs.getString("date")%></td>
 				  		<td> <%=rs.getString("time")%></td>
 				  		<td><%=rs.getString("capacity")%></td>
-				  		<td><a href="buyticket.jsp" class="btn btn-primary">Buy Ticket</a></td>
+						<td>
+							<select style="width:auto;" name="ddlTicketQuantity">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</td>
+				  		
+						<td>
+							<input type="submit" class="btn btn-primary" value="Buy Ticket" />
+						</td>
 				  	</tr>
+				</form>
 			<%
 				}
 			%>

@@ -1,18 +1,32 @@
 <%@include file = "connect.jsp"%> 
 <% 
 	String username = request.getParameter("txtUsername"); 
-	String password = request.getParameter("txtpassword"); 
+	String password = request.getParameter("txtPassword"); 
 	
-	String query = "select * from mscustomer where username='"+username+"' and password='"+password+"'"; 
+	// check if flight.jsp was accessed before
+	String flightId = request.getParameter("flightId");
+	String ticketQuantity = request.getParameter("ddlTicketQuantity");
+	
+	String query = "select * from MsUser where username='"+username+"' and password='"+password+"'"; 
 	ResultSet rs = st.executeQuery(query); 
 		if(rs.next()) 
 		{ 
 			session.setAttribute("username",username);
 			session.setAttribute("password",password);
-			response.sendRedirect("../index.jsp"); 
+			
+			if(flightId != null && ticketQuantity != null)
+				response.sendRedirect("../buyticket.jsp?flightId="+flightId+"&&ddlTicketQuantity=" + ticketQuantity);
+			
+			else {
+				response.sendRedirect("../index.jsp");
+			}
 		} 
 		else 
-		{ 
-			response.sendRedirect("../index.jsp?err=Invalid Username or Password"); 
+		{
+			if(flightId != null && ticketQuantity != null)
+				response.sendRedirect("../buyticket.jsp?err=Invalid Username or Password&&flightId="+flightId+"&&ddlTicketQuantity=" + ticketQuantity);
+			else {
+				response.sendRedirect("../index.jsp?err=Invalid Username or Password"); 
+			}
 		} 
 %>
