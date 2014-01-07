@@ -50,6 +50,14 @@
       clear: both;
       text-align:justify;
     }
+    .hotel-content{
+      margin:10px 0px 10px 0px;
+      padding:10px 10px 10px 10px;
+      min-height:200px;
+      overflow:hidden;
+      clear: both;
+      text-align:justify;
+    }
  /*end of additional css*/
 
 .clearfix {
