@@ -129,6 +129,7 @@
 						
 						<!-- Start Of Tab Tour -->
 						<div class="tab-pane" id="tab3">
+						<form method="GET" action="tour.jsp">
 							<div class="control-group ">
 								From
 								<div class="controls">
@@ -161,10 +162,9 @@
 	//To get data from database and insert to dropdown
 	
 	String query4 = "SELECT mci.CityID, mci.CityName, mco.CountryName FROM MsCity as mci, MsCountry as mco WHERE mco.CountryID = mci.CountryID ORDER BY mci.CountryID";
-	
 	ResultSet rs4 = st.executeQuery(query4);
 	while(rs4.next())
-	{
+	{	
 %>
 										<option value="<%=rs4.getInt("CityID")%>">
 											<%=rs4.getString("CityName")%> - <b><%=rs4.getString("CountryName")%></b>
@@ -175,15 +175,30 @@
 									</select>		
 								</div>
 							</div>
+							
 							<div class="control-group ">
-								<label class="control-label">Date</label>
+								<label class="control-label">Month</label>
 								<div class="controls">
-									<input type="date" name="dateT" placeholder="Date" />
+									<select name="ddlMonth">
+										<option value="1">January</option>
+										<option value="2">February</option>
+										<option value="3">March</option>
+										<option value="4">April</option>
+										<option value="5">May</option>
+										<option value="6">June</option>
+										<option value="7">July</option>
+										<option value="8">August</option>
+										<option value="9">September</option>
+										<option value="10">October</option>
+										<option value="11">November</option>
+										<option value="12">December</option>
+									</select>
 								</div>
 							</div>
 							<div align="center" style="margin-left:-80px;">
-								<input type="button" class="btn btn-primary" value="Find Tour" />
+								<input type="submit" class="btn btn-primary" value="Find Tour" />
 							</div>
+						</form>
 						</div>
 						<!-- End Of Tab Tour -->
 					</div>

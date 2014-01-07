@@ -12,6 +12,19 @@
 			<%
 			String query = "SELECT tourid, cityfromid, mcf.cityname AS CityFromName, mcd.cityname AS CityDestinationName, startdate, enddate, capacity, mt.description, price, ispromo FROM mstour AS mt, mscity as mcf, mscity as mcd where mcf.cityid=mt.cityfromid And mcd.cityid=mt.citydestinationid";
 
+			String cityfrom = request.getParameter("ddlCityFromT");
+			String citydest = request.getParameter("ddlCityDestinationT");
+			String dateflight = request.getParameter("ddlMonth");
+
+			if(cityfrom != null)
+			query +=" AND cityfromid = "+cityfrom;
+
+			if(citydest != null)
+			query +=" AND citydestinationid = "+citydest;
+
+			if(dateflight != null)
+			query +=" AND '"+dateflight+"' >= DATEPART('M', mt.StartDate) AND '"+dateflight+"' <= DATEPART('M',mt.EndDate)";
+			
 			ResultSet rs = st.executeQuery(query);
 			Integer promo =0;
 			Integer i=1;
