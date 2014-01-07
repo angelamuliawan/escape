@@ -77,7 +77,7 @@
 	%>
 		<div class="span11 tour-content">
 			<div class="span3">
-				<img src="assets/img/tourimage/1.jpg" style="width:200px;height:200px;"/>
+				<img src="<%=rs.getString("HotelClassURL")%>" style="width:200px;height:200px;"/>
 			</div>
 			<div class="span5">
 				<h3 style="color:#FF9A25">
@@ -103,6 +103,6 @@
 <script type="text/javascript">
 	$(".btnViewDesc").click(function(){
 		var id = $(this).attr("id");
-		$("#txtDescription"+id).slideToggle();
+		$("#txtDescription"+id).stop().slideToggle();
 	});
 </script>
