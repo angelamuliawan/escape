@@ -79,17 +79,35 @@
 			<div class="span3">
 				<img src="<%=rs.getString("HotelClassURL")%>" style="width:200px;height:200px;"/>
 			</div>
-			<div class="span5">
+			<div class="span4">
 				<h3 style="color:#FF9A25">
 					<%=rs.getString("HotelClassName")%>
 				</h3>
 				<a style="cursor:pointer;" class="btnViewDesc" id="<%=i%>">View Description Of This Hotel Class<span style="size:16px;">&nbsp;^</span></a>
 				<p style="text-align:justify; display:none;" id="txtDescription<%=i%>" ><%=rs.getString("Description")%></p>
 			</div>	
-			<div class="span2">
-				<h5> $<%=rs.getString("PricePerNight")%> /night</h5>
-				<p>include Tax</p>
-				<input type="button" class="btn btn-primary" value="Booking" />
+			<div class="span3" style="text-align:right;">
+				<form method="GET" action="buyticket.jsp">
+					<h5> $<%=rs.getString("PricePerNight")%> /night <span>include tax</span></h5>
+					<p>
+						<input type="text" class="dateinput" placeholder="CheckIn Date" style="width:42%;"/><input type="text" class="dateinput" placeholder="CheckOut Date" style="width:44%;float:right;display:inline;"/>
+					</p>
+					<p>
+						<select style="width:auto;" name="ddlTicketQuantity">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+						</select>
+						<input type="button" class="btn btn-primary" value="Booking" style="display:inline;margin-top:-10px;"/>
+					</p>
+				</form>
 			</div>
 		</div>
 	<%
@@ -104,5 +122,8 @@
 	$(".btnViewDesc").click(function(){
 		var id = $(this).attr("id");
 		$("#txtDescription"+id).stop().slideToggle();
+	});
+	$(".dateinput").on('mouseover',function(data){
+			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
 	});
 </script>
