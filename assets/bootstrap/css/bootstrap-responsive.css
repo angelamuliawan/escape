@@ -895,6 +895,15 @@
   .modal.fade.in {
     top: 20px;
   }
+  
+  #divContact{
+	/*border:1px solid #CAD958 !important;*/
+	margin-top:100px;
+  }
+  
+  #overview{
+	padding-bottom:130px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -946,6 +955,15 @@
   }
   .carousel-caption {
     position: static;
+  }
+  
+  #divContact{
+	/*border:1px solid #000 !important;*/
+	margin-top:80px;
+  }
+  
+  #overview{
+	padding-bottom:130px;
   }
 }
 

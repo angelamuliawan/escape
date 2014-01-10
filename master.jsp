@@ -82,7 +82,7 @@
 		<div class="container">
 			<img src="./assets/img/logo/logoescape.png" style="margin-left:-60px;margin-top:-30px;" />
 			
-			<div class="span3" style="float:right;margin-top:-20px;border:1px solid;padding:10px;">
+			<div id="divContact" class="span3" style="border:1px solid #FFF;padding:10px; position:absolute; top:-15px; right:0;">
 				 <img src="assets/img/icon/icon-telephone.png" width="20"> </img> 
 				 123456789
 					<br>

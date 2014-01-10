@@ -41,16 +41,35 @@
 						Capacity left: <%=rs1.getString("capacity")%>
 					</p>
 					<p>
-						<%=rs1.getString("price")%>
+						Rp. <%=rs1.getString("price")%>
 						<%if(promo == 1) out.print("<label style='color:red; display:inline;' class='blink'>IN PROMO</label>");%>
+					</p>
+					<p>
+						<select style="width:auto;" name="ddlTicketQuantity">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						<input type="submit" value="Booking" class="btn btn-primary" style="margin-top:-10px;" />
 					</p>
 			</div>
 			<div style="clear:both">
 				<br>
-					<h5 style="color:#ff9a25">Day 1</h5>
+				<%
+					for(Integer i = 0; i < splitDayDetail.length; i++) {
+				%>
+					<h5 style="color:#ff9a25">Day <%=i+1%></h5>
 					<p>
-						<% out.print(splitDayDetail[0]); %>
+						<%=splitDayDetail[i]%>
 					</p>
+				<%}%>:
 			</div>
 		<%
 			}
