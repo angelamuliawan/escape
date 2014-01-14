@@ -70,7 +70,7 @@
 						<input type="hidden" name="qty" value="<%=qty%>" />
 						<input type="hidden" name="startdate" value="<%=startdateold%>" />
 						<input type="hidden" name="enddate" value="<%=enddateold%>" />
-						<input type="hidden" name="tourprice" value="" />
+						<input type="hidden" name="totalhotel" value="" />
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
@@ -106,6 +106,7 @@
 					Integer night = 2;
 					Integer total = qty * price * night;
 					%>
+					<input type="hidden" name="totalhoteltemp" value="<%=total%>" />
 						<div class="control-group">
 							<label class="control-label">Room Hotel Preview :</label>
 							<div class="controls form-text modified">
@@ -173,8 +174,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		var tourprice = $("[name='tempTourPrice']").val();
-		$("[name='tourprice']").val(tourprice);
+		var totalhotel = $("[name='totalhoteltemp']").val();
+		$("[name='totalhotel']").val(totalhotel);
 
 	});
 </script>

@@ -7,7 +7,7 @@
 		String status = request.getParameter("status");
 		if(status != null) {
 		%>
-		<div class="alert alert-success tempNotification" style="float: none; position: fixed; left: 110px; bottom: 10px;">
+		<div class="alert alert-success tempNotification" style="float: none; position: fixed; left: 110px; bottom: 10px;z-index:1000;">
 			<button type="button" class="close" data-dismiss="alert">x</button>
 			<strong>Success! </strong> <%=status%>
 		</div>

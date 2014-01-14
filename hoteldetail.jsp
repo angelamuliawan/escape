@@ -93,7 +93,7 @@
 				<form method="GET" action="bookhotel.jsp">
 				<input type="hidden" name="classid" value="<%=rs.getString("HotelClassID")%>" />
 				<input type="hidden" name="hotelid" value="<%=rs.getString("HotelID")%>" />
-					<h5> $<%=rs.getString("PricePerNight")%> /night <span>include tax</span></h5>
+					<h5> Rp <%=rs.getString("PricePerNight")%> /night <span>include tax</span></h5>
 					<p>
 						<input type="text" class="dateinput" placeholder="CheckIn Date" name="startdate" style="width:42%;"/><input type="text" class="dateinput" placeholder="CheckOut Date" name="enddate" style="width:42%;float:right;display:inline;"/>
 					</p>
