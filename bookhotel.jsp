@@ -16,17 +16,32 @@
 			
 				<%
 					// passed param
-					String flightId = request.getParameter("flightId");
-					Integer ticketquantity = Integer.parseInt(request.getParameter("ddlTicketQuantity"));
+					Integer classid = Integer.parseInt(request.getParameter("classid"));
+					Integer hotelid = Integer.parseInt(request.getParameter("hotelid"));
+					Integer qty = Integer.parseInt(request.getParameter("ddlTicketQuantity"));
+					String startdateold = request.getParameter("startdate");
+					String enddateold = request.getParameter("enddate");
+					
+					DateFormat old = new SimpleDateFormat("yyyy-MM-dd");
+					Date dateoldstart = old.parse(startdateold);
+					Date dateoldend = old.parse(enddateold);
+					
+					DateFormat df = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+					String startdate = df.format(dateoldstart);
+					String enddate = df.format(dateoldend);
+
 				%>
-				
+
 				<% if(session.getAttribute("username") == null || session.getAttribute("username") == "") { %>
 					<form class="form-horizontal" action="do/dologin.jsp" method="post">
 						<legend>Login Form</legend>
-						<input type="hidden" name="flightId" value="<%=flightId%>" />
-						<input type="hidden" name="ddlTicketQuantity" value="<%=ticketquantity%>" />
+						<input type="hidden" name="classid" value="<%=classid%>" />
+						<input type="hidden" name="hotelid" value="<%=hotelid%>" />
+						<input type="hidden" name="qty" value="<%=qty%>" />
+						<input type="hidden" name="startdate" value="<%=startdateold%>" />
+						<input type="hidden" name="enddate" value="<%=enddateold%>" />
 						<div class="alert alert-info">
-							Please login first before start buying ticket. If you're not a member, please <a href="register.jsp">register</a>
+							Please login first before start booking hotel. If you're not a member, please <a href="register.jsp">register</a>
 						</div>
 						
 						<div class="control-group">
@@ -48,9 +63,14 @@
 						</div>
 					</form>
 				<% } else { %>
-					<form class="form-horizontal">
-						<legend>Login Form</legend>
-						
+					<form class="form-horizontal" action="do/dobookhotel.jsp" method="POST">
+						<legend>Tour Booking Confirmation</legend>
+						<input type="hidden" name="classid" value="<%=classid%>" />
+						<input type="hidden" name="hotelid" value="<%=hotelid%>" />
+						<input type="hidden" name="qty" value="<%=qty%>" />
+						<input type="hidden" name="startdate" value="<%=startdateold%>" />
+						<input type="hidden" name="enddate" value="<%=enddateold%>" />
+						<input type="hidden" name="tourprice" value="" />
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
@@ -66,78 +86,82 @@
 						</div>
 						
 						<div class="controls">
-							<button type="submit" class="btn btn-primary">Buy Ticket</button>
+							<button type="submit" class="btn btn-primary">Book Hotel</button>
 						</div>
 					</form>
 				<% } %>
 			</div>
 		
 			<div class="span6">
-
 				<form class="form-horizontal">
-					<legend>Flight Summary Order</legend>
+					<legend>Hotel Summary Order</legend>
 					<%
 					
-					String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, FORMAT(date,'Long Date') as convDate, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid AND flightid = " + flightId;
+					String query = "SELECT mhc.hotelid, hotelname, mhc.hotelclassid, hotelclassname, mc.cityname, mco.countryname, address, pricepernight, hotelclassurl FROM mshotelclass AS mhc, mshotel as mh, mscity as mc, mscountry as mco WHERE mc.cityid=mh.cityid AND mhc.hotelid = mh.hotelid AND mco.countryid = mc.countryid AND mhc.hotelclassid = " + classid;
 
-					String cityfrom = request.getParameter("ddlCityFrom");
-					String citydest = request.getParameter("ddlCityDestination");
-					String dateflight = request.getParameter("dateFlight");
-					
 					ResultSet rs = st.executeQuery(query);
 					while(rs.next()) {
-					String oldticketPrice = rs.getString("ticketprice");
-					Integer ticketPrice = Integer.parseInt(oldticketPrice.replace(".",""));
-					Integer total = ticketquantity * ticketPrice;
-					
+					Integer price = rs.getInt("pricepernight");
+					//Integer tourprice = Integer.parseInt(oldtourPrice.replace(".",""));
+					Integer night = 2;
+					Integer total = qty * price * night;
 					%>
 						<div class="control-group">
-							<label class="control-label">Airlines :</label>
+							<label class="control-label">Room Hotel Preview :</label>
 							<div class="controls form-text modified">
 								<span>
-									<img src="<%=rs.getString("airlineimage")%>" style="width:170px;height:50px;">
+									<img src="<%=rs.getString("hotelclassurl")%>" style="width:350px;height:175px;">
 								</span>
 							</div>
 						</div>
 						
 						<div class="control-group">
-							<label class="control-label">Price :</label>
+							<label class="control-label">Hotel Name : </label>
 							<div class="controls form-text modified">
-								<span>Rp. <%=oldticketPrice%></span>
+								<span><%=rs.getString("hotelname")%></span>
 							</div>
 						</div>
-						
 						<div class="control-group">
-							<label class="control-label">Route :</label>
+							<label class="control-label">Address : </label>
 							<div class="controls form-text modified">
-								<span><%=rs.getString("CityFrom")%> - <%=rs.getString("CityDestination")%></span>
+								<span><%=rs.getString("address")%>,
+									&nbsp;<%=rs.getString("cityname")%>, &nbsp;
+									<%=rs.getString("countryname")%>
+								</span>
 							</div>
 						</div>
-						
 						<div class="control-group">
-							<label class="control-label">Flight Date :</label>
+							<label class="control-label">Hotel Room Class : </label>
 							<div class="controls form-text modified">
-								<span><%=rs.getString("convDate")%></span>
+								<span><%=rs.getString("hotelclassname")%></span>
 							</div>
 						</div>
-						
 						<div class="control-group">
-							<label class="control-label">Flight Time :</label>
+							<label class="control-label">Price/night : </label>
 							<div class="controls form-text modified">
-								<span><%=rs.getString("time")%></span>
+								<span>Rp. <%=price%></span>
 							</div>
 						</div>
-						
 						<div class="control-group">
-							<label class="control-label">Total :</label>
+							<label class="control-label">Day in Hotel : </label>
 							<div class="controls form-text modified">
-								<span>Rp. <%=total%></span>
+								<span><%=startdate%> - <%=enddate%> (<%=night%> day(s))</span>
 							</div>
 						</div>
-						
+						<div class="control-group">
+							<label class="control-label">Quantity of Room : </label>
+							<div class="controls form-text modified">
+								<span><%=qty%></span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label"><b>Grand Total : </b></label>
+							<div class="controls form-text modified">
+								<span><b>Rp. <%=total%> </b></span>
+							</div>
+						</div>
 					<% } %>
 				</form>
-			
 			</div>
 		
 		</div> <!-- /row -->
@@ -148,7 +172,9 @@
 <%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
-	$(".dateinput").on('mouseover',function(data){
-			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
-		});
+	$(document).ready(function(){
+		var tourprice = $("[name='tempTourPrice']").val();
+		$("[name='tourprice']").val(tourprice);
+
+	});
 </script>

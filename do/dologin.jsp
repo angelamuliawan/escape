@@ -11,6 +11,13 @@
 	String tourid = request.getParameter("tourid");
 	String tourquantity = request.getParameter("ddlTourQuantity");
 	
+	// check if bookhotel.jsp was accessed before
+	Integer classid = Integer.parseInt(request.getParameter("classid"));
+	Integer hotelid = Integer.parseInt(request.getParameter("hotelid"));
+	Integer qty = Integer.parseInt(request.getParameter("qty"));
+	String startdateold = request.getParameter("startdate");
+	String enddateold = request.getParameter("enddate");
+
 	String query = "select * from MsUser where username='"+username+"' and password='"+password+"'"; 
 	ResultSet rs = st.executeQuery(query); 
 		if(rs.next()) 
@@ -24,7 +31,8 @@
 			
 			else if(tourid != null && tourquantity != null)
 				response.sendRedirect("../booktour.jsp?tourid="+tourid+"&&ddlTourQuantity=" + tourquantity);
-
+			else if(classid != null && hotelid != null && qty != null && startdateold != null && enddateold != null)
+				response.sendRedirect("../bookhotel.jsp?classid="+classid+"&&hotelid="+hotelid+"&&ddlTicketQuantity="+qty+"&&startdate="+startdateold+"&&enddate="+enddateold);
 			else {
 				response.sendRedirect("../index.jsp");
 			}
@@ -36,7 +44,8 @@
 
 			else if(tourid != null && tourquantity != null)
 				response.sendRedirect("../booktour.jsp?err=Invalid Username or Password&&tourid="+tourid+"&&ddlTourQuantity=" + tourquantity);
-
+			else if(classid != null && hotelid != null && qty != null && startdateold != null && enddateold != null)
+				response.sendRedirect("../bookhotel.jsp?err=Invalid Username or Password&&classid="+classid+"&&hotelid="+hotelid+"&&ddlTicketQuantity="+qty+"&&startdate="+startdateold+"&&enddate="+enddateold);
 			else {
 				response.sendRedirect("../index.jsp?err=Invalid Username or Password"); 
 			}
