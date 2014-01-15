@@ -55,7 +55,12 @@
 				<li><a href="hotpromo.jsp">Promo Event<font style="font-size:17px;" class="blink">!</font></a></li>
                 <li><a href="tour.jsp">Tour</a></li>
 				<li><a href="hotel.jsp">Hotel</a></li>
-				<li><a href="flight.jsp">Flight</a></li>				
+				<li><a href="flight.jsp">Flight</a></li>
+				<% if(session.getAttribute("username") != null && session.getAttribute("username") != "") { %>
+				<li>
+					<a href="confirmation.jsp">Confirmation</a>
+				</li>
+				<%}%>
             </ul>
             <ul class="nav pull-right">
                 <li>
