@@ -11,6 +11,7 @@
 	ResultSet rs = st.executeQuery(query); 
 		if(rs.next()) 
 		{ 
+			session.setAttribute("userid", rs.getString("userid"));
 			session.setAttribute("username",username);
 			session.setAttribute("password",password);
 			

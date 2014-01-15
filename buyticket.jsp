@@ -19,7 +19,7 @@
 					String flightId = request.getParameter("flightId");
 					Integer ticketquantity = Integer.parseInt(request.getParameter("ddlTicketQuantity"));
 				%>
-				
+
 				<% if(session.getAttribute("username") == null || session.getAttribute("username") == "") { %>
 					<form class="form-horizontal" action="do/dologin.jsp" method="post">
 						<legend>Login Form</legend>
@@ -48,9 +48,11 @@
 						</div>
 					</form>
 				<% } else { %>
-					<form class="form-horizontal">
-						<legend>Login Form</legend>
-						
+					<form class="form-horizontal" action="do/dobuyticket.jsp" method="POST">
+						<legend>Flight Confirmation</legend>
+						<input type="hidden" name="flightId" value="<%=flightId%>" />
+						<input type="hidden" name="ddlTicketQuantity" value="<%=ticketquantity%>" />
+						<input type="hidden" name="ticketprice" value="" />
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
@@ -91,6 +93,8 @@
 					Integer total = ticketquantity * ticketPrice;
 					
 					%>
+						<input type="hidden" name="tempTicketPrice" value="<%=ticketPrice%>" />
+
 						<div class="control-group">
 							<label class="control-label">Airlines :</label>
 							<div class="controls form-text modified">
@@ -148,7 +152,9 @@
 <%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
-	$(".dateinput").on('mouseover',function(data){
-			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
-		});
+	$(document).ready(function(){
+		var ticketprice = $("[name='tempTicketPrice']").val();
+		$("[name='ticketprice']").val(ticketprice);
+
+	});
 </script>

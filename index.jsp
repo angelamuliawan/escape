@@ -2,6 +2,19 @@
 <%@ include file="do/connect.jsp" %>
 	<div class="container">
 		
+		<!-- Alert -->
+		<%
+		String status = request.getParameter("status");
+		if(status != null) {
+		%>
+		<div class="alert alert-success tempNotification" style="float: none; position: fixed; left: 110px; bottom: 10px;">
+			<button type="button" class="close" data-dismiss="alert">x</button>
+			<strong>Success! </strong> Flight transaction success
+		</div>
+		<%
+		}
+		%>
+
 		<div class="row" style="margin-top:60px;">
 		
 			<div class="span4">
@@ -259,7 +272,14 @@
 <%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
-	$(".dateinput").on('mouseover',function(data){
+
+	$(document).ready(function(){
+		$(".dateinput").on('mouseover',function(data){
 			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
 		});
+
+		$(".tempNotification").fadeOut(10000);
+	});
+
+		
 </script>

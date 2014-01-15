@@ -98,7 +98,7 @@
 	
 	else
 	{
-		String query = "SELECT UserName FROM MsCustomer WHERE UserName = '"+ username +"' ";
+		String query = "SELECT UserName FROM msuser WHERE UserName = '"+ username +"' ";
 		ResultSet rs = st.executeQuery(query);
 		
 		if(rs.next()) {
@@ -107,7 +107,7 @@
 		
 		else {
 					
-			st.executeUpdate("INSERT INTO MsCustomer(UserName, Password, FullName, GenderID, BirthDate, Phone, MobilePhone, Address, Email, isNewsLetter) VALUES" + 
+			st.executeUpdate("INSERT INTO Msuser(UserName, Password, FullName, GenderID, BirthDate, Phone, MobilePhone, Address, Email, isNewsLetter) VALUES" + 
 			"('"+username+"','"+password+"','"+fullname+"',"+gender+",'"+birthdate+"','"+phone+"','"+mobilephone+"','"+address+"','"+email+"',"+newsletter+")");
 			
 			con.close();
