@@ -20,7 +20,7 @@
 			st.executeUpdate("INSERT INTO TrPaymentFlight(UserID, FlightID, Quantity, PaymentPrice, HasConfirm)" + 
 			"VALUES('"+userid+"','"+flightId+"',"+ticketQuantity+","+paymentprice+","+hasconfirm+")");
 			
-			response.sendRedirect("../index.jsp?status=Success");
+			response.sendRedirect("../index.jsp?status=Flight transaction success");
 
 			con.close();
 		}

@@ -20,7 +20,7 @@
 			st.executeUpdate("INSERT INTO TrPaymentTour(UserID, TourID, Quantity, PaymentPrice, HasConfirm)" + 
 			"VALUES('"+userid+"','"+tourid+"',"+tourQuantity+","+tourprice+","+hasconfirm+")");
 			
-			response.sendRedirect("../index.jsp?status=Success");
+			response.sendRedirect("../index.jsp?status=Tour transaction success");
 
 			con.close();
 		}

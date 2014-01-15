@@ -9,7 +9,7 @@
 		%>
 		<div class="alert alert-success tempNotification" style="float: none; position: fixed; left: 110px; bottom: 10px;">
 			<button type="button" class="close" data-dismiss="alert">x</button>
-			<strong>Success! </strong> Flight transaction success
+			<strong>Success! </strong> <%=status%>
 		</div>
 		<%
 		}
