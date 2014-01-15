@@ -16,17 +16,17 @@
 			
 				<%
 					// passed param
-					String flightId = request.getParameter("flightId");
-					Integer ticketquantity = Integer.parseInt(request.getParameter("ddlTicketQuantity"));
+					Integer tourid = Integer.parseInt(request.getParameter("tourid"));
+					Integer tourQuantity = Integer.parseInt(request.getParameter("ddlTourQuantity"));
 				%>
 
 				<% if(session.getAttribute("username") == null || session.getAttribute("username") == "") { %>
 					<form class="form-horizontal" action="do/dologin.jsp" method="post">
 						<legend>Login Form</legend>
-						<input type="hidden" name="flightId" value="<%=flightId%>" />
-						<input type="hidden" name="ddlTicketQuantity" value="<%=ticketquantity%>" />
+						<input type="hidden" name="tourid" value="<%=tourid%>" />
+						<input type="hidden" name="ddlTourQuantity" value="<%=tourQuantity%>" />
 						<div class="alert alert-info">
-							Please login first before start buying ticket. If you're not a member, please <a href="register.jsp">register</a>
+							Please login first before start buying tour. If you're not a member, please <a href="register.jsp">register</a>
 						</div>
 						
 						<div class="control-group">
@@ -48,11 +48,11 @@
 						</div>
 					</form>
 				<% } else { %>
-					<form class="form-horizontal" action="do/dobuyticket.jsp" method="POST">
-						<legend>Flight Booking Confirmation</legend>
-						<input type="hidden" name="flightId" value="<%=flightId%>" />
-						<input type="hidden" name="ddlTicketQuantity" value="<%=ticketquantity%>" />
-						<input type="hidden" name="ticketprice" value="" />
+					<form class="form-horizontal" action="do/dobooktour.jsp" method="POST">
+						<legend>Tour Booking Confirmation</legend>
+						<input type="hidden" name="tourid" value="<%=tourid%>" />
+						<input type="hidden" name="ddlTourQuantity" value="<%=tourQuantity%>" />
+						<input type="hidden" name="tourprice" value="" />
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
@@ -68,7 +68,7 @@
 						</div>
 						
 						<div class="controls">
-							<button type="submit" class="btn btn-primary">Buy Ticket</button>
+							<button type="submit" class="btn btn-primary">Buy Tour</button>
 						</div>
 					</form>
 				<% } %>
@@ -77,58 +77,49 @@
 			<div class="span6">
 
 				<form class="form-horizontal">
-					<legend>Flight Summary Order</legend>
+					<legend>Tour Summary Order</legend>
 					<%
 					
-					String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, FORMAT(date,'Long Date') as convDate, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid AND flightid = " + flightId;
+					String query = "SELECT tourid, tourimage, cityfromid, daydetail, mcf.cityname AS CityFromName, mcd.cityname AS CityDestinationName, startdate, enddate, FORMAT(startdate,'Long Date') as convStartDate, FORMAT(enddate,'Long Date') as convEndDate, capacity, mt.description, price, isPromo FROM mstour AS mt, mscity as mcf, mscity as mcd WHERE mcf.cityid=mt.cityfromid And mcd.cityid=mt.citydestinationid AND mt.tourid = " + tourid;
 
-					String cityfrom = request.getParameter("ddlCityFrom");
-					String citydest = request.getParameter("ddlCityDestination");
-					String dateflight = request.getParameter("dateFlight");
-					
 					ResultSet rs = st.executeQuery(query);
 					while(rs.next()) {
-					String oldticketPrice = rs.getString("ticketprice");
-					Integer ticketPrice = Integer.parseInt(oldticketPrice.replace(".",""));
-					Integer total = ticketquantity * ticketPrice;
+					String oldtourPrice = rs.getString("price");
+					Integer tourprice = Integer.parseInt(oldtourPrice.replace(".",""));
+					Integer total = tourQuantity * tourprice;
 					
 					%>
-						<input type="hidden" name="tempTicketPrice" value="<%=ticketPrice%>" />
+						<input type="hidden" name="tempTourPrice" value="<%=tourprice%>" />
 
 						<div class="control-group">
-							<label class="control-label">Airlines :</label>
+							<label class="control-label">Tour Scene Preview :</label>
 							<div class="controls form-text modified">
 								<span>
-									<img src="<%=rs.getString("airlineimage")%>" style="width:170px;height:50px;">
+									<img src="<%=rs.getString("tourimage")%>" style="width:350px;height:175px;">
 								</span>
 							</div>
 						</div>
 						
 						<div class="control-group">
-							<label class="control-label">Price :</label>
+							<label class="control-label">Price : </label>
 							<div class="controls form-text modified">
-								<span>Rp. <%=oldticketPrice%></span>
+								<span>Rp. <%=oldtourPrice%></span>
 							</div>
 						</div>
 						
 						<div class="control-group">
-							<label class="control-label">Route :</label>
+							<label class="control-label">Tour City : </label>
 							<div class="controls form-text modified">
-								<span><%=rs.getString("CityFrom")%> - <%=rs.getString("CityDestination")%></span>
+								<span>
+								<%=rs.getString("CityFromName")%> &nbsp;-&nbsp;<%=rs.getString("CityDestinationName")%> 
+								</span>
 							</div>
 						</div>
 						
 						<div class="control-group">
-							<label class="control-label">Flight Date :</label>
+							<label class="control-label">Capacity Left :</label>
 							<div class="controls form-text modified">
-								<span><%=rs.getString("convDate")%></span>
-							</div>
-						</div>
-						
-						<div class="control-group">
-							<label class="control-label">Flight Time :</label>
-							<div class="controls form-text modified">
-								<span><%=rs.getString("time")%></span>
+								<span><%=rs.getString("capacity")%></span>
 							</div>
 						</div>
 						
@@ -153,8 +144,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		var ticketprice = $("[name='tempTicketPrice']").val();
-		$("[name='ticketprice']").val(ticketprice);
+		var tourprice = $("[name='tempTourPrice']").val();
+		$("[name='tourprice']").val(tourprice);
 
 	});
 </script>

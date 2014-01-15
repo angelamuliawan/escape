@@ -6,6 +6,10 @@
 	// check if flight.jsp was accessed before
 	String flightId = request.getParameter("flightId");
 	String ticketQuantity = request.getParameter("ddlTicketQuantity");
+
+	// check if tour.jsp was accessed before
+	String tourid = request.getParameter("tourid");
+	String tourquantity = request.getParameter("ddlTourQuantity");
 	
 	String query = "select * from MsUser where username='"+username+"' and password='"+password+"'"; 
 	ResultSet rs = st.executeQuery(query); 
@@ -18,6 +22,9 @@
 			if(flightId != null && ticketQuantity != null)
 				response.sendRedirect("../buyticket.jsp?flightId="+flightId+"&&ddlTicketQuantity=" + ticketQuantity);
 			
+			else if(tourid != null && tourquantity != null)
+				response.sendRedirect("../booktour.jsp?tourid="+tourid+"&&ddlTourQuantity=" + tourquantity);
+
 			else {
 				response.sendRedirect("../index.jsp");
 			}
@@ -26,6 +33,10 @@
 		{
 			if(flightId != null && ticketQuantity != null)
 				response.sendRedirect("../buyticket.jsp?err=Invalid Username or Password&&flightId="+flightId+"&&ddlTicketQuantity=" + ticketQuantity);
+
+			else if(tourid != null && tourquantity != null)
+				response.sendRedirect("../booktour.jsp?err=Invalid Username or Password&&tourid="+tourid+"&&ddlTourQuantity=" + tourquantity);
+
 			else {
 				response.sendRedirect("../index.jsp?err=Invalid Username or Password"); 
 			}

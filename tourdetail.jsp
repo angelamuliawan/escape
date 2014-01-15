@@ -44,21 +44,25 @@
 						Rp. <%=rs1.getString("price")%>
 						<%if(promo == 1) out.print("<label style='color:red; display:inline;' class='blink'>IN PROMO</label>");%>
 					</p>
-					<p>
-						<select style="width:auto;" name="ddlTicketQuantity">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-						</select>
-						<input type="submit" value="Booking" class="btn btn-primary" style="margin-top:-10px;" />
-					</p>
+					<form method="POST" action="booktour.jsp">
+						<input type="hidden" name="tourid" value="<%=tourid%>" />
+						<p>
+							<select style="width:auto;" name="ddlTourQuantity">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+							
+							<input type="submit" value="Booking" class="btn btn-primary" style="margin-top:-10px;" />
+						</p>
+					</form>
 			</div>
 			<div style="clear:both">
 				<br>
