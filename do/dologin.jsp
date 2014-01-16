@@ -26,6 +26,7 @@
 			session.setAttribute("userid", rs.getString("userid"));
 			session.setAttribute("username",username);
 			session.setAttribute("password",password);
+			session.setAttribute("role",rs.getString("role"));
 			
 			if(flightId != null && ticketQuantity != null)
 				response.sendRedirect("../buyticket.jsp?flightId="+flightId+"&&ddlTicketQuantity=" + ticketQuantity);
