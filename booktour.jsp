@@ -15,6 +15,17 @@
 			<div class="span6">
 			
 				<%
+					String curUserID = (String)session.getAttribute("userid");
+					Integer tempUserID = 0;
+					String query2 = "SELECT TOP 1 PaymentTourID FROM TrPaymentTour " + 
+					" ORDER BY PaymentTourID DESC";
+					ResultSet rs2 = st.executeQuery(query2);
+
+					if(rs2.next()) {
+						tempUserID = rs2.getInt("PaymentTourID") + 1;
+					} else {
+						tempUserID = 1;
+					}
 					// passed param
 					Integer tourid = Integer.parseInt(request.getParameter("tourid"));
 					Integer tourQuantity = Integer.parseInt(request.getParameter("ddlTourQuantity"));
@@ -48,8 +59,45 @@
 						</div>
 					</form>
 				<% } else { %>
-					<form class="form-horizontal" action="do/dobooktour.jsp" method="POST">
+					<form class="form-horizontal tourdetail" style="display:none;" action="do/dobooktour.jsp" method="POST">
+						<legend>Tour Detail</legend>
+						<%
+						for(Integer i = 0; i < tourQuantity; i++) { %>
+
+						<h4>Passenger <%=(i+1)%></h4>
+						<div class="control-group">
+							<label class="control-label">Full Name</label>
+							<div class="controls">
+								<input type="text" name="fullname<%=i%>" placeholder="Full Name" value="" />
+							</div>
+						</div>
+
+						<div class="control-group ">
+							<label class="control-label">Birth Date</label>
+							<div class="controls">
+								<input type="text" class="dateinput" name="birthdate<%=i%>" placeholder="yyyy/mm/dd" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label"> Gender </label>
+							<div class="controls form-text" style="margin-top: 2px">
+								<input type="radio" value="1" name="gender<%=i%>" /> <label style="display:inline;">Male </label>&nbsp;
+								<input type="radio" value="2" name="gender<%=i%>" /> <label style="display:inline;">Female </label>
+							</div>
+						</div>
+
+						<div class="control-group ">
+							<label class="control-label">Identity Number</label>
+							<div class="controls">
+								<input type="text" name="identitynumber<%=i%>" placeholder="Identity Number" value=""/>
+							</div>
+						</div>
+						<hr>
+					<% } %>
+
 						<legend>Tour Booking Confirmation</legend>
+						<input type="hidden" name="userheaderid" value="<%=tempUserID%>" />
 						<input type="hidden" name="tourid" value="<%=tourid%>" />
 						<input type="hidden" name="ddlTourQuantity" value="<%=tourQuantity%>" />
 						<input type="hidden" name="tourprice" value="" />
@@ -144,6 +192,13 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		$(".dateinput").on('mouseover',function(data){
+			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
+		});
+
+		$(".tourdetail").slideDown();
+
 		var tourprice = $("[name='tempTourPrice']").val();
 		$("[name='tourprice']").val(tourprice);
 

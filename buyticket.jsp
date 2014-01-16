@@ -13,8 +13,19 @@
 			
 			<!-- Left content login -->
 			<div class="span6">
-			
+
 				<%
+					String curUserID = (String)session.getAttribute("userid");
+					Integer tempUserID = 0;
+					String query2 = "SELECT TOP 1 PaymentFlightID FROM TrPaymentFlight " + 
+					" ORDER BY PaymentFlightID DESC";
+					ResultSet rs2 = st.executeQuery(query2);
+
+					if(rs2.next()) {
+						tempUserID = rs2.getInt("PaymentFlightID") + 1;
+					} else {
+						tempUserID = 1;
+					}
 					// passed param
 					String flightId = request.getParameter("flightId");
 					Integer ticketquantity = Integer.parseInt(request.getParameter("ddlTicketQuantity"));
@@ -48,8 +59,47 @@
 						</div>
 					</form>
 				<% } else { %>
-					<form class="form-horizontal" action="do/dobuyticket.jsp" method="POST">
+
+					<form class="form-horizontal flightdetail" style="display:none;" action="do/dobuyticket.jsp" method="POST">
+					<legend>Flight Detail</legend>
+					<%
+						for(Integer i = 0; i < ticketquantity; i++) { %>
+
+						<h4>Passenger <%=(i+1)%></h4>
+						<div class="control-group">
+							<label class="control-label">Full Name</label>
+							<div class="controls">
+								<input type="text" name="fullname<%=i%>" placeholder="Full Name" value="" />
+							</div>
+						</div>
+
+						<div class="control-group ">
+							<label class="control-label">Birth Date</label>
+							<div class="controls">
+								<input type="text" class="dateinput" name="birthdate<%=i%>" placeholder="yyyy/mm/dd" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label"> Gender </label>
+							<div class="controls form-text" style="margin-top: 2px">
+								<input type="radio" value="1" name="gender<%=i%>" /> <label style="display:inline;">Male </label>&nbsp;
+								<input type="radio" value="2" name="gender<%=i%>" /> <label style="display:inline;">Female </label>
+							</div>
+						</div>
+
+						<div class="control-group ">
+							<label class="control-label">Identity Number</label>
+							<div class="controls">
+								<input type="text" name="identitynumber<%=i%>" placeholder="Identity Number" value=""/>
+							</div>
+						</div>
+						<hr>
+					<% } %>
+
+					
 						<legend>Flight Booking Confirmation</legend>
+						<input type="hidden" name="userheaderid" value="<%=tempUserID%>" />
 						<input type="hidden" name="flightId" value="<%=flightId%>" />
 						<input type="hidden" name="ddlTicketQuantity" value="<%=ticketquantity%>" />
 						<input type="hidden" name="ticketprice" value="" />
@@ -71,6 +121,9 @@
 							<button type="submit" class="btn btn-primary">Buy Ticket</button>
 						</div>
 					</form>
+
+					
+
 				<% } %>
 			</div>
 		
@@ -153,6 +206,13 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		$(".dateinput").on('mouseover',function(data){
+			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
+		});
+
+		$(".flightdetail").slideDown();
+
 		var ticketprice = $("[name='tempTicketPrice']").val();
 		$("[name='ticketprice']").val(ticketprice);
 
