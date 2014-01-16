@@ -36,7 +36,10 @@
 							
 						
 			</div>
-			<div style="clear:both">
+			<div style="clear:both;">
+			<br>	<a style="cursor:pointer" id="viewDetailHotel">View More Description Of This Hotel..</a>
+			</div>
+			<div id="detailHotel" style="clear:both; display:none;">
 				<br>
 				<h5 style="color:#ff9a25">
 						Hotel Location	
@@ -87,10 +90,12 @@
 				<p style="text-align:justify; display:none;" id="txtDescription<%=i%>" ><%=rs.getString("Description")%></p>
 			</div>	
 			<div class="span3" style="text-align:right;">
-				<form method="GET" action="buyticket.jsp">
+				<form method="GET" action="bookhotel.jsp">
+				<input type="hidden" name="classid" value="<%=rs.getString("HotelClassID")%>" />
+				<input type="hidden" name="hotelid" value="<%=rs.getString("HotelID")%>" />
 					<h5> $<%=rs.getString("PricePerNight")%> /night <span>include tax</span></h5>
 					<p>
-						<input type="text" class="dateinput" placeholder="CheckIn Date" style="width:42%;"/><input type="text" class="dateinput" placeholder="CheckOut Date" style="width:44%;float:right;display:inline;"/>
+						<input type="text" class="dateinput" placeholder="CheckIn Date" name="startdate" style="width:42%;"/><input type="text" class="dateinput" placeholder="CheckOut Date" name="enddate" style="width:42%;float:right;display:inline;"/>
 					</p>
 					<p>
 						<select style="width:auto;" name="ddlTicketQuantity">
@@ -105,7 +110,7 @@
 									<option value="9">9</option>
 									<option value="10">10</option>
 						</select>
-						<input type="button" class="btn btn-primary" value="Booking" style="display:inline;margin-top:-10px;"/>
+						<input type="submit" class="btn btn-primary" value="Booking" style="display:inline;margin-top:-10px;"/>
 					</p>
 				</form>
 			</div>
@@ -119,6 +124,10 @@
 <%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
+
+	$("#viewDetailHotel").click(function(){
+		$("#detailHotel").stop().slideToggle();
+	});
 	$(".btnViewDesc").click(function(){
 		var id = $(this).attr("id");
 		$("#txtDescription"+id).stop().slideToggle();
