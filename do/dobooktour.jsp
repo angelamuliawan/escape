@@ -22,6 +22,8 @@
 			st.executeUpdate("INSERT INTO TrPaymentTour(UserID, TourID, Quantity, PaymentPrice, HasConfirm)" + 
 			"VALUES('"+userid+"','"+tourid+"',"+tourQuantity+","+tourprice+","+hasconfirm+")");
 
+			st.executeUpdate("UPDATE MsTour SET Capacity = (Capacity - "+tempTicket+") WHERE TourID = " + tourid);
+
 			for(Integer i = 0; i < tempTicket; i++) {
 				String passenger = (String)request.getParameter("fullname" + i);
 				String birthdate = (String)request.getParameter("birthdate" + i);

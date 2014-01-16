@@ -12,9 +12,10 @@
 	String tourquantity = request.getParameter("ddlTourQuantity");
 	
 	// check if bookhotel.jsp was accessed before
-	Integer classid = Integer.parseInt(request.getParameter("classid"));
-	Integer hotelid = Integer.parseInt(request.getParameter("hotelid"));
-	Integer qty = Integer.parseInt(request.getParameter("qty"));
+	String classid = request.getParameter("classid");
+	String hotelid = request.getParameter("hotelid");
+	String qty = request.getParameter("qty");
+
 	String startdateold = request.getParameter("startdate");
 	String enddateold = request.getParameter("enddate");
 
