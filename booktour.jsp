@@ -134,7 +134,7 @@
 					while(rs.next()) {
 					String oldtourPrice = rs.getString("price");
 					Integer tourprice = Integer.parseInt(oldtourPrice.replace(".",""));
-					Integer total = tourQuantity * tourprice;
+					Integer total = 2 * tourprice;
 					
 					%>
 						<input type="hidden" name="tempTourPrice" value="<%=tourprice%>" />
