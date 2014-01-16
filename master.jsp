@@ -20,7 +20,17 @@
 	<link href="assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
 	<link href="assets/bootstrap/css/docs.css" rel="stylesheet" media="screen">
 	<link href="assets/bootstrap/css/datepicker.css" rel="stylesheet">
-	
+
+	<!-- jQuery Validation Engine -->
+	<link rel="stylesheet" href="assets/validation/css/validationEngine.jquery.css" type="text/css"/>
+	<link rel="stylesheet" href="assets/validation/css/template.css" type="text/css"/>
+	<script src="assets/validation/js/jquery-1.8.2.min.js" type="text/javascript">
+	</script>
+	<script src="assets/validation/js/languages/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8">
+	</script>
+	<script src="assets/validation/js/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
+	</script>
+
   </head>
 
 	<body data-spy="scroll" data-target=".bs-docs-sidebar" id="pageBody" class="animated fadeInDown">
@@ -108,30 +118,27 @@
 			<button type="button" class="close" data-dismiss="modal">X</button>
 			<h3 id="myModalLabel">Customer Login</h3>
 		</div>
-		<div class="modal-body ">
-		  <form class="form-horizontal" action="do/dologin.jsp" method="post">
-			  <div class="control-group">
-				<label class="control-label">Username</label>
-				<div class="controls">
-					<input type="text" placeholder="Input Your Username" name="txtUsername" id="txtUsername" />
-				</div>
-			  </div>
-			  <div class="control-group">
-				<label class="control-label">Password</label>
-				<div class="controls">
-					 <input type="password" placeholder="Input Your password" id="txtPassword" name="txtPassword"/>
-				</div>
-			  </div>
+		<div class="modal-body">
+		  	<form id="formLogin" class="form-horizontal" style="height:200px;" action="do/dologin.jsp" method="post">
+			  	<div class="control-group">
+					<label class="control-label">Username</label>
+					<div class="controls">
+						<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Username" name="txtUsername" id="txtUsername" />
+					</div>
+			 	 </div>
+			  	<div class="control-group">
+					<label class="control-label">Password</label>
+					<div class="controls">
+						<input type="password" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your password" id="txtPassword" name="txtPassword"/>
+					</div>
+			 	</div>
               
-              <label id="error"></label>
-             
-		  </form> 
+              	<label id="error"></label>
 		</div>
-		<div class="modal-footer" style="margin-top:-20px;">
-			
-			<button class="btn btn-primary" id="btnLogin" type="button">Login</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="cancel">Cancel</button>
-		</div>
+			<div class="modal-footer" style="margin-top:-20px;">	
+				<button class="btn btn-primary" id="btnLogin" type="button">Login</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="cancel">Cancel</button>
+			</div>
         </form>
 	</div>
 	
@@ -141,7 +148,7 @@
 			out.print("<script type='text/javascript'>alert('"+err+"');</script>");
 	%>
 
-	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<!--<script type="text/javascript" src="assets/js/jquery.js"></script>-->
     <script src="assets/js/bootstrap-transition.js"></script>
     <script src="assets/js/bootstrap-alert.js"></script>
     <script src="assets/js/bootstrap-modal.js"></script>
@@ -165,6 +172,10 @@
     <script type="text/javascript">
 	
 		//('#mdlLogin').modal('show');
+
+		$(document).ready(function(){
+			$("#formLogin").validationEngine();
+		});
 	
 		$("body").on("click", "#btnLogin", function()
 		{

@@ -33,7 +33,7 @@
 				%>
 
 				<% if(session.getAttribute("username") == null || session.getAttribute("username") == "") { %>
-					<form class="form-horizontal" action="do/dologin.jsp" method="post">
+					<form id="formBookHotel" class="form-horizontal" action="do/dologin.jsp" method="post">
 						<legend>Login Form</legend>
 						<input type="hidden" name="classid" value="<%=classid%>" />
 						<input type="hidden" name="hotelid" value="<%=hotelid%>" />
@@ -47,14 +47,14 @@
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
-								<input type="text" placeholder="Input Your Username" name="txtUsername" />
+								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Username" name="txtUsername" />
 							</div>
 						</div>
 						
 						<div class="control-group">
 							<label class="control-label">Password</label>
 							<div class="controls">
-								<input type="text" placeholder="Input Your Password" name="txtPassword" />
+								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
 							</div>
 						</div>
 						
@@ -63,7 +63,7 @@
 						</div>
 					</form>
 				<% } else { %>
-					<form class="form-horizontal" action="do/dobookhotel.jsp" method="POST">
+					<form id="formBookHotel" class="form-horizontal" action="do/dobookhotel.jsp" method="POST">
 						<legend>Tour Booking Confirmation</legend>
 						<input type="hidden" name="classid" value="<%=classid%>" />
 						<input type="hidden" name="hotelid" value="<%=hotelid%>" />
@@ -81,7 +81,7 @@
 						<div class="control-group">
 							<label class="control-label">Password</label>
 							<div class="controls">
-								<input type="text" placeholder="Input Your Password" name="txtPassword" />
+								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
 							</div>
 						</div>
 						
@@ -176,6 +176,6 @@
 	$(document).ready(function(){
 		var totalhotel = $("[name='totalhoteltemp']").val();
 		$("[name='totalhotel']").val(totalhotel);
-
+		$("#formBookHotel").validationEngine();
 	});
 </script>

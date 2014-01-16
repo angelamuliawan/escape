@@ -90,12 +90,13 @@
 				<p style="text-align:justify; display:none;" id="txtDescription<%=i%>" ><%=rs.getString("Description")%></p>
 			</div>	
 			<div class="span3" style="text-align:right;">
-				<form method="GET" action="bookhotel.jsp">
+				<form id="formHotelDetail" method="GET" action="bookhotel.jsp">
 				<input type="hidden" name="classid" value="<%=rs.getString("HotelClassID")%>" />
 				<input type="hidden" name="hotelid" value="<%=rs.getString("HotelID")%>" />
 					<h5> Rp <%=rs.getString("PricePerNight")%> /night <span>include tax</span></h5>
 					<p>
-						<input type="text" class="dateinput" placeholder="CheckIn Date" name="startdate" style="width:42%;"/><input type="text" class="dateinput" placeholder="CheckOut Date" name="enddate" style="width:42%;float:right;display:inline;"/>
+						<input type="text" class="dateinput  validate[required] text-input" data-prompt-position="topRight:-70" placeholder="CheckIn Date" name="startdate" style="width:42%;"/>
+						<input type="text" class="dateinput  validate[required] text-input" data-prompt-position="topRight:-70" placeholder="CheckOut Date" name="enddate" style="width:42%;float:right;display:inline;"/>
 					</p>
 					<p>
 						<select style="width:auto;" name="ddlTicketQuantity">
@@ -124,15 +125,19 @@
 <%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
-
-	$("#viewDetailHotel").click(function(){
-		$("#detailHotel").stop().slideToggle();
-	});
-	$(".btnViewDesc").click(function(){
-		var id = $(this).attr("id");
-		$("#txtDescription"+id).stop().slideToggle();
-	});
-	$(".dateinput").on('mouseover',function(data){
+	
+	$(document).ready(function(){
+		$("#formHotelDetail").validationEngine();
+		$("#viewDetailHotel").click(function(){
+			$("#detailHotel").stop().slideToggle();
+		});
+		$(".btnViewDesc").click(function(){
+			var id = $(this).attr("id");
+			$("#txtDescription"+id).stop().slideToggle();
+		});
+		$(".dateinput").on('mouseover',function(data){
 			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
+		});
 	});
+	
 </script>

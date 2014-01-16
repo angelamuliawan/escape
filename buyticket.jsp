@@ -32,7 +32,7 @@
 				%>
 
 				<% if(session.getAttribute("username") == null || session.getAttribute("username") == "") { %>
-					<form class="form-horizontal" action="do/dologin.jsp" method="post">
+					<form id="formBookTour" class="form-horizontal" action="do/dologin.jsp" method="post">
 						<legend>Login Form</legend>
 						<input type="hidden" name="flightId" value="<%=flightId%>" />
 						<input type="hidden" name="ddlTicketQuantity" value="<%=ticketquantity%>" />
@@ -43,14 +43,14 @@
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
-								<input type="text" placeholder="Input Your Username" name="txtUsername" />
+								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Username" name="txtUsername" />
 							</div>
 						</div>
 						
 						<div class="control-group">
 							<label class="control-label">Password</label>
 							<div class="controls">
-								<input type="text" placeholder="Input Your Password" name="txtPassword" />
+								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
 							</div>
 						</div>
 						
@@ -60,7 +60,7 @@
 					</form>
 				<% } else { %>
 
-					<form class="form-horizontal flightdetail" style="display:none;" action="do/dobuyticket.jsp" method="POST">
+					<form id="formBookTour" class="form-horizontal flightdetail" style="display:none;" action="do/dobuyticket.jsp" method="POST">
 					<legend>Flight Detail</legend>
 					<%
 						for(Integer i = 0; i < ticketquantity; i++) { %>
@@ -69,29 +69,29 @@
 						<div class="control-group">
 							<label class="control-label">Full Name</label>
 							<div class="controls">
-								<input type="text" name="fullname<%=i%>" placeholder="Full Name" value="" />
+								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" name="fullname<%=i%>" placeholder="Full Name" value="" />
 							</div>
 						</div>
 
 						<div class="control-group ">
 							<label class="control-label">Birth Date</label>
 							<div class="controls">
-								<input type="text" class="dateinput" name="birthdate<%=i%>" placeholder="yyyy/mm/dd" />
+								<input type="text" class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" name="birthdate<%=i%>" placeholder="yyyy/mm/dd" />
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label"> Gender </label>
 							<div class="controls form-text" style="margin-top: 2px">
-								<input type="radio" value="1" name="gender<%=i%>" /> <label style="display:inline;">Male </label>&nbsp;
-								<input type="radio" value="2" name="gender<%=i%>" /> <label style="display:inline;">Female </label>
+								<input type="radio" class="validate[required] radio" value="1" name="gender<%=i%>" /> <label style="display:inline;">Male </label>&nbsp;
+								<input type="radio" class="validate[required] radio" value="2" name="gender<%=i%>" /> <label style="display:inline;">Female </label>
 							</div>
 						</div>
 
 						<div class="control-group ">
 							<label class="control-label">Identity Number</label>
 							<div class="controls">
-								<input type="text" name="identitynumber<%=i%>" placeholder="Identity Number" value=""/>
+								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" name="identitynumber<%=i%>" placeholder="Identity Number" value=""/>
 							</div>
 						</div>
 						<hr>
@@ -215,6 +215,6 @@
 
 		var ticketprice = $("[name='tempTicketPrice']").val();
 		$("[name='ticketprice']").val(ticketprice);
-
+		$("#formBookTour").validationEngine();
 	});
 </script>

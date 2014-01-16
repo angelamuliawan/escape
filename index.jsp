@@ -1,5 +1,6 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
+
 	<div class="container">
 		
 		<!-- Alert -->
@@ -28,7 +29,7 @@
 					<div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 						<!-- Start Of Tab Flight -->
 						<div class="tab-pane active" id="tab1">
-							<form method="GET" action="flight.jsp">
+							<form id="formFlight" method="GET" action="flight.jsp">
 								<div class="control-group ">
 									From
 									<div class="controls">
@@ -78,7 +79,7 @@
 								<div class="control-group ">
 									<label class="control-label">Date</label>
 									<div class="controls">
-										<input type="text" class="dateinput" name="dateFlight" placeholder="Date" />
+										<input type="text" class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" name="dateFlight" placeholder="Date" />
 									</div>
 								</div>
 								<div align="center" style="margin-left:-80px;">
@@ -90,11 +91,11 @@
 						
 						<!-- Start Of Tab Hotel -->
 						<div class="tab-pane" id="tab2">
-									<form method="get" action="hotel.jsp">					
+							<form id="formHotel" method="get" action="hotel.jsp">					
 							<div class="control-group ">
 								<label class="control-label">Search</label>
 								<div class="controls">
-									<input type="text" name="searchhotel"  placeholder="Search by Hotel Name" />
+									<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" name="searchhotel"  placeholder="Search by Hotel Name" />
 								</div>
 							</div>
 							<div class="control-group ">
@@ -142,7 +143,7 @@
 						
 						<!-- Start Of Tab Tour -->
 						<div class="tab-pane" id="tab3">
-						<form method="GET" action="tour.jsp">
+						<form id="formTour" method="GET" action="tour.jsp">
 							<div class="control-group ">
 								From
 								<div class="controls">
@@ -279,6 +280,10 @@
 		});
 
 		$(".tempNotification").fadeOut(10000);
+
+		$("#formFlight").validationEngine();
+		$("#formHotel").validationEngine();
+		$("#formTour").validationEngine();
 	});
 
 		
