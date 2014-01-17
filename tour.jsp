@@ -1,14 +1,10 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
 <div class="container">
-`		<!-- your content goes here -->
-	  <div class="marketing">
-
+	<div class="marketing">
 		<h1>Escape - Tour</h1>
 		<p class="marketing-byline">Search best tour, best price at the right time</p>
-
 		<div class="row-fluid">
-
 			<%
 			String query = "SELECT tourid, tourimage, cityfromid, mcf.cityname AS CityFromName, mcd.cityname AS CityDestinationName, startdate, enddate, FORMAT(startdate,'Long Date') as convStartDate, FORMAT(enddate,'Long Date') as convEndDate, capacity, mt.description, price, ispromo FROM mstour AS mt, mscity as mcf, mscity as mcd where mcf.cityid=mt.cityfromid And mcd.cityid=mt.citydestinationid";
 
@@ -37,41 +33,38 @@
 					<img src="<%=rs.getString("tourimage")%>" style="width:160px;height:200px;">
 				</div>
 				<div class="span6">
-				<form method="POST" action="tourdetail.jsp">
-					<p style="display:none;">
-						<input type="hidden" value="<%=rs.getString("tourid")%>" name="tourid" />
-					</p>
-					<h4 style="color:#ff9a25">
-						<%=rs.getString("CityFromName")%> &nbsp;-&nbsp;<%=rs.getString("CityDestinationName")%> 
-					</h4>
-					<p>
-						<%=rs.getString("convStartDate")%> &nbsp;-&nbsp;<%=rs.getString("convEndDate")%> 
-					</p>
-					<p>
-						<%=rs.getString("description")%>
-					</p>
-					<p>
-						Capacity left: <%=rs.getString("capacity")%>
-					</p>
-					<p>
-						<%=rs.getString("price")%>
-						<%if(promo== 1) out.print("<label style='color:red; display:inline;' class='blink'>IN PROMO</label>");%>
-					</p>
-					<p>
-						<!-- <a href="#" style="font-size:12px;">View detail>></a>-->
-						<input type="submit" class="btn btn-primary" value="View Detail" />
-					</p>
-				</form>
+					<form method="POST" action="tourdetail.jsp">
+						<p style="display:none;">
+							<input type="hidden" value="<%=rs.getString("tourid")%>" name="tourid" />
+						</p>
+						<h4 style="color:#ff9a25">
+							<%=rs.getString("CityFromName")%> &nbsp;-&nbsp;<%=rs.getString("CityDestinationName")%> 
+						</h4>
+						<p>
+							<%=rs.getString("convStartDate")%> &nbsp;-&nbsp;<%=rs.getString("convEndDate")%> 
+						</p>
+						<p>
+							<%=rs.getString("description")%>
+						</p>
+						<p>
+							Capacity left: <%=rs.getString("capacity")%>
+						</p>
+						<p>
+							<%=rs.getString("price")%>
+							<%if(promo== 1) out.print("<label style='color:red; display:inline;' class='blink'>IN PROMO</label>");%>
+						</p>
+						<p>
+							<input type="submit" class="btn btn-primary" value="View Detail" />
+						</p>
+					</form>
 				</div>
 			</div>
-			<div style="clear:both">
-
+			<div style="clear:both"/>
 			<%
 			i++;
 			}
 			%>
 		</div>
-		
 	</div>
 </div> <!-- </container> end of content -->
 

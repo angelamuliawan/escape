@@ -1,6 +1,7 @@
 <%@ include file="connect.jsp" %>
 
 <%
+	/* Get all required parameter */
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String confirmPassword = request.getParameter("confirmPassword");
@@ -19,42 +20,23 @@
 	Integer gender = 0;
 	if(genderid != null) gender = Integer.parseInt(genderid);
 	
-	/*out.println(username);
-	out.println(password);
-	out.println(confirmPassword);
-	out.println(email);
-	out.println(fullname);
-	out.println(birthdate);
-	out.println(gender);
-	out.println(address);
-	out.println(phone);
-	out.println(mobilephone);
-	out.println(newsletter);*/
-
-
 	boolean PhoneValid = true;
 	if(phone!="") {
-	
 		for(Integer i = 0; i < phone.length();i++) {
-		
 			if(!Character.isDigit(phone.charAt(i))) {
 				PhoneValid = false;
 				break;
 			}
-			
 		}
 	}
 
 	boolean MobilePhoneValid = true;
 	if(mobilephone!="") {
-	
 		for(Integer i = 0; i < mobilephone.length();i++) {
-		
 			if(!Character.isDigit(mobilephone.charAt(i))) {
 				MobilePhoneValid = false;
 				break;
 			}
-			
 		}
 	}
 	
@@ -101,17 +83,14 @@
 		String query = "SELECT UserName FROM msuser WHERE UserName = '"+ username +"' ";
 		ResultSet rs = st.executeQuery(query);
 		
+		/* Check if user is exists */
 		if(rs.next()) {
 			response.sendRedirect("../register.jsp?err=Username has been used by another member");
 		}
-		
-		else {
-					
+		else {	
 			st.executeUpdate("INSERT INTO Msuser(UserName, Password, FullName, GenderID, BirthDate, Phone, MobilePhone, Address, Email, isNewsLetter) VALUES" + 
 			"('"+username+"','"+password+"','"+fullname+"',"+gender+",'"+birthdate+"','"+phone+"','"+mobilephone+"','"+address+"','"+email+"',"+newsletter+")");
-			
-			con.close();
-			
+			con.close();	
 			response.sendRedirect("../register.jsp?status=You are successfully registered. Please try to login");
 		}
 	}

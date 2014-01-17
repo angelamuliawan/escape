@@ -1,6 +1,7 @@
 <%@ include file="connect.jsp" %>
 
 <%
+	/* Get all required parameter */
 	String userid = (String)session.getAttribute("userid");
 	String username = (String)session.getAttribute("username");
 	String password = request.getParameter("txtPassword");

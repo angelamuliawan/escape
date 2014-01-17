@@ -1,6 +1,5 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
-
 	<style>
 		.modified {
 			margin-top:5px;
@@ -8,12 +7,9 @@
 	</style>
 
 	<div class="container">
-		
 		<div class="row" style="margin-top:60px;">
-			
-			<!-- Left content login -->
+			<!-- Left content -> login -->
 			<div class="span6">
-
 				<%
 					String curUserID = (String)session.getAttribute("userid");
 					Integer tempUserID = 0;
@@ -121,14 +117,11 @@
 							<button type="submit" class="btn btn-primary">Buy Ticket</button>
 						</div>
 					</form>
-
-					
-
 				<% } %>
 			</div>
 		
+			<!-- Right content -> Description -->
 			<div class="span6">
-
 				<form class="form-horizontal">
 					<legend>Flight Summary Order</legend>
 					<%
@@ -191,14 +184,10 @@
 								<span>Rp. <%=total%></span>
 							</div>
 						</div>
-						
 					<% } %>
 				</form>
-			
 			</div>
-		
 		</div> <!-- /row -->
-		
     </div> <!-- /container -->
 
 
@@ -206,15 +195,16 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-
+		/* Initialize datepicker component */
 		$(".dateinput").on('mouseover',function(data){
 			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
 		});
 
 		$(".flightdetail").slideDown();
-
 		var ticketprice = $("[name='tempTicketPrice']").val();
 		$("[name='ticketprice']").val(ticketprice);
+		
+		/* bind form with validation engine */
 		$("#formBookTour").validationEngine();
 	});
 </script>

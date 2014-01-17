@@ -1,6 +1,7 @@
 <%@ include file="connect.jsp" %>
 
 <%
+	/* Get all required parameter */
 	String userid = (String)session.getAttribute("userid");
 	String userheaderid = request.getParameter("userheaderid");
 	String username = (String)session.getAttribute("username");
@@ -13,17 +14,21 @@
 	String ticketQuantity = request.getParameter("ddlTicketQuantity");
 	Integer tempTicket = Integer.parseInt(ticketQuantity);
 
-
 	String query = "SELECT UserName FROM MsUser WHERE UserName = '"+ username +"' AND Password = '"+password+"' ";
 	ResultSet rs = st.executeQuery(query);
 
+	/* if user exists */
 	if(rs.next()) {
 		if(flightId != null && ticketQuantity != null) {
+			
+			/* Insert into database */
 			st.executeUpdate("INSERT INTO TrPaymentFlight(UserID, FlightID, Quantity, PaymentPrice, HasConfirm)" + 
 			"VALUES('"+userid+"','"+flightId+"',"+ticketQuantity+","+paymentprice+","+hasconfirm+")");
-
+			
+			/* Reduce capacity based on quantity ordered */
 			st.executeUpdate("UPDATE MsFlight SET Capacity = (Capacity - "+tempTicket+") WHERE FlightID = " + flightId);
 
+			/* Insert detail */
 			for(Integer i = 0; i < tempTicket; i++) {
 				String passenger = (String)request.getParameter("fullname" + i);
 				String birthdate = (String)request.getParameter("birthdate" + i);

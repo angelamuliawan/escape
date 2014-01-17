@@ -1,84 +1,90 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
-
 	<style>
 		.modified {
 			margin-top:5px;
 		}
 	</style>
-
+	
 	<div class="container">
+		<%
 		
-		<%
-			String role = (String)session.getAttribute("role");
-			if(role != null)
-				if(role.compareTo("admin") == 0) {
+		if(session.getAttribute("username") == null || session.getAttribute("username") == "")
+			response.sendRedirect("index.jsp");
+		
+		/* If user role is admin */
+		String role = (String)session.getAttribute("role");
+		if(role != null)
+			if(role.compareTo("admin") == 0) {
 		%>
-			<div class="row" style="margin-top:60px;">
-				<div class="span12">
-					<table class="table table-bordered table-condensed">
-						<thead>
-							<tr>
-								<th>No.</th>
-								<th>Category</th>
-								<th>Bank</th>
-								<th>Account Name</th>
-								<th>Account Number</th>
-								<th>Transfer Date</th>
-								<th>Total</th>
-								<th style="text-align:center;">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%
-								Integer no = 1;
-								String query =  "SELECT 'Hotel' AS Category, PaymentHotelID AS ID, Bank, AccountName, AccountNumber, TransferDate, DATEDIFF('d', StartDate, EndDate) * NumberOfRoom * PaymentPrice AS Total FROM TrPaymentHotel WHERE HasConfirm = 1 UNION" +
-												" SELECT 'Flight' AS Category, PaymentFlightID AS ID, Bank, AccountName, AccountNumber, TransferDate, PaymentPrice * Quantity AS Total FROM TrPaymentFlight WHERE HasConfirm = 1 UNION" + 
-												" SELECT 'Tour' AS Category, PaymentTourID AS ID, Bank, AccountName, AccountNumber, TransferDate, PaymentPrice * Quantity AS Total FROM TrPaymentTour WHERE HasConfirm = 1";
-								ResultSet rs4 = st2.executeQuery(query);
-								while(rs4.next()) {
-								String category = rs4.getString("Category");
-								String id = rs4.getString("ID");
-							%>
-							<tr>
-								<td><%=no%></td>
-								<!--<td><a data-toggle="modal" data-target="#modal<%=category%><%=id%>" style="cursor:pointer;"><%=category%></a></td>-->
-								<td><%=category%></td>
-								<td><%=rs4.getString("Bank")%></td>
-								<td><%=rs4.getString("AccountName")%></td>
-								<td><%=rs4.getString("AccountNumber")%></td>
-								<td><%=rs4.getString("TransferDate")%></td>
-								<td>Rp. <%=rs4.getString("Total")%></td>
-								<td style="text-align:center;">
-									<a href="do/doacceptorder.jsp?id=<%=id%>&&type=<%=category%>"><input type="button" class="btn btn-success" value="Accept" /></a>
-									<a href="do/dorejectorder.jsp?id=<%=id%>&&type=<%=category%>"><input type="button" class="btn btn-danger" value="Reject" /></a>
-								</td>
-								<!--
-								<div style="display: block;" id="modal<%=category%><%=id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h3 id="myModalLabel"><%=category%> Detail</h3>
-									</div>
-									<div class="modal-body">
-										<p></p>
-									</div>
-									<div class="modal-footer">
-									  <button class="btn" data-dismiss="modal">Close</button>
-									</div>
+		<div class="row" style="margin-top:60px;">
+			<div class="span12">
+				<table class="table table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Category</th>
+							<th>Bank</th>
+							<th>Account Name</th>
+							<th>Account Number</th>
+							<th>Transfer Date</th>
+							<th>Total</th>
+							<th style="text-align:center;">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+							Integer no = 1;
+							String query =  "SELECT 'Hotel' AS Category, PaymentHotelID AS ID, Bank, AccountName, AccountNumber, TransferDate, DATEDIFF('d', StartDate, EndDate) * NumberOfRoom * PaymentPrice AS Total FROM TrPaymentHotel WHERE HasConfirm = 1 UNION" +
+											" SELECT 'Flight' AS Category, PaymentFlightID AS ID, Bank, AccountName, AccountNumber, TransferDate, PaymentPrice * Quantity AS Total FROM TrPaymentFlight WHERE HasConfirm = 1 UNION" + 
+											" SELECT 'Tour' AS Category, PaymentTourID AS ID, Bank, AccountName, AccountNumber, TransferDate, PaymentPrice * Quantity AS Total FROM TrPaymentTour WHERE HasConfirm = 1";
+							ResultSet rs4 = st2.executeQuery(query);
+							/* Category is needed to specify order type */
+							while(rs4.next()) {
+							String category = rs4.getString("Category");
+							String id = rs4.getString("ID");
+						%>
+						<tr>
+							<td><%=no%></td>
+							<!--<td><a data-toggle="modal" data-target="#modal<%=category%><%=id%>" style="cursor:pointer;"><%=category%></a></td>-->
+							<td><%=category%></td>
+							<td><%=rs4.getString("Bank")%></td>
+							<td><%=rs4.getString("AccountName")%></td>
+							<td><%=rs4.getString("AccountNumber")%></td>
+							<td><%=rs4.getString("TransferDate")%></td>
+							<td>Rp. <%=rs4.getString("Total")%></td>
+							<td style="text-align:center;">
+								<a href="do/doacceptorder.jsp?id=<%=id%>&&type=<%=category%>"><input type="button" class="btn btn-success" value="Accept" /></a>
+								<a href="do/dorejectorder.jsp?id=<%=id%>&&type=<%=category%>"><input type="button" class="btn btn-danger" value="Reject" /></a>
+							</td>
+							<!--
+							<div style="display: block;" id="modal<%=category%><%=id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h3 id="myModalLabel"><%=category%> Detail</h3>
 								</div>
-								-->
-							</tr>
-							
-							<%
-								no++;
-								}
-							%>
-						</tbody>
-					</table>
-				</div>
+								<div class="modal-body">
+									<p></p>
+								</div>
+								<div class="modal-footer">
+								  <button class="btn" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+							-->
+						</tr>
+						
+						<%
+							no++;
+							}
+						%>
+					</tbody>
+				</table>
 			</div>
+		</div>
 		<%
-			} else {
+			} 
+			/* user role is member */
+			else {
 		%>
 			<!-- HOTEL -->
 			<%
@@ -104,6 +110,7 @@
 			%>
 			
 			<div class="row" style="margin-top:60px;">
+				<!-- Left content display summary order -->
 				<div class="span6">
 					<form class="form-horizontal">
 						<legend>Hotel Summary Order</legend>
@@ -166,6 +173,7 @@
 					</form>
 				</div>
 				
+				<!-- Right content display form confirmation -->
 				<div class="span6">
 					<form id="formConfirmationHotel<%=index%>" class="form-horizontal" action="do/doconfirmationhotel.jsp" method="POST">
 						<legend>Confirmation</legend>
@@ -234,6 +242,7 @@
 			%>
 			
 			<div class="row" style="margin-top:60px;">
+				<!-- Left content display summary order -->
 				<div class="span6">
 					<form class="form-horizontal">
 						<legend>Flight Summary Order</legend>
@@ -290,6 +299,7 @@
 					</form>
 				</div>
 				
+				<!-- Right content display form confirmation -->
 				<div class="span6">
 					<form id="formConfirmationFlight<%=index%>" class="form-horizontal" action="do/doconfirmationflight.jsp" method="POST">
 						<legend>Confirmation</legend>
@@ -359,6 +369,7 @@
 			%>
 			
 			<div class="row" style="margin-top:60px;">
+				<!-- Left content display summary order -->
 				<div class="span6">
 					<form class="form-horizontal">
 						<legend>Tour Summary Order</legend>
@@ -403,6 +414,7 @@
 					</form>
 				</div>
 				
+				<!-- Right content display form confirmation -->
 				<div class="span6">
 					<form id="formConfirmationTour<%=index%>" class="form-horizontal" action="do/doconfirmationtour.jsp" method="POST">
 						<legend>Confirmation</legend>
@@ -458,13 +470,12 @@
 			}
 		%>
 		
-		<!--
-			0 = just recently bookind
+		<!-- has confirm status
+			0 = just recently booking
 			1 = had paid, but still not confirmed by admin
 			2 - accepted by admin
 			3 = rejected by admin
 		-->
-		
     </div> <!-- /container -->
 
 
@@ -472,11 +483,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		/* Initialize datepicker component */
 		$(".dateinput").on('mouseover',function(data){
 			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
 		});
 		var totalhotel = $("[name='totalhoteltemp']").val();
 		$("[name='totalhotel']").val(totalhotel);
+		
+		/* bind form with validation engine */
 		for(var i = 0; i < 100; i++) {
 			$("#formConfirmationHotel" + i).validationEngine();
 			$("#formConfirmationFlight" + i).validationEngine();

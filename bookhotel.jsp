@@ -1,19 +1,15 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
-
 	<style>
 		.modified {
 			margin-top:5px;
 		}
 	</style>
-
 	<div class="container">
-		
 		<div class="row" style="margin-top:60px;">
-			
-			<!-- Left content login -->
+		
+			<!-- Left content -> login -->
 			<div class="span6">
-			
 				<%
 					// passed param
 					Integer classid = Integer.parseInt(request.getParameter("classid"));
@@ -43,21 +39,18 @@
 						<div class="alert alert-info">
 							Please login first before start booking hotel. If you're not a member, please <a href="register.jsp">register</a>
 						</div>
-						
 						<div class="control-group">
 							<label class="control-label">Username</label>
 							<div class="controls">
 								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Username" name="txtUsername" />
 							</div>
 						</div>
-						
 						<div class="control-group">
 							<label class="control-label">Password</label>
 							<div class="controls">
 								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
 							</div>
 						</div>
-						
 						<div class="controls">
 							<button type="submit" class="btn btn-primary">Sign in</button>
 						</div>
@@ -77,14 +70,12 @@
 								<input type="text" disabled name="txtUsername" value="<%=session.getAttribute("username")%>" />
 							</div>
 						</div>
-						
 						<div class="control-group">
 							<label class="control-label">Password</label>
 							<div class="controls">
 								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
 							</div>
 						</div>
-						
 						<div class="controls">
 							<button type="submit" class="btn btn-primary">Book Hotel</button>
 						</div>
@@ -92,6 +83,7 @@
 				<% } %>
 			</div>
 		
+			<!-- Right content -> Description -->
 			<div class="span6">
 				<form class="form-horizontal">
 					<legend>Hotel Summary Order</legend>
@@ -102,7 +94,6 @@
 					ResultSet rs = st.executeQuery(query);
 					while(rs.next()) {
 					Integer price = rs.getInt("pricepernight");
-					//Integer tourprice = Integer.parseInt(oldtourPrice.replace(".",""));
 					Integer night = 2;
 					Integer total = qty * price * night;
 					%>
@@ -115,7 +106,6 @@
 								</span>
 							</div>
 						</div>
-						
 						<div class="control-group">
 							<label class="control-label">Hotel Name : </label>
 							<div class="controls form-text modified">
@@ -164,18 +154,16 @@
 					<% } %>
 				</form>
 			</div>
-		
 		</div> <!-- /row -->
-		
     </div> <!-- /container -->
-
-
 <%@ include file="footer.jsp" %>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		var totalhotel = $("[name='totalhoteltemp']").val();
 		$("[name='totalhotel']").val(totalhotel);
+		
+		/* bind form with validation engine */
 		$("#formBookHotel").validationEngine();
 	});
 </script>

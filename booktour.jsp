@@ -1,19 +1,14 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
-
 	<style>
 		.modified {
 			margin-top:5px;
 		}
 	</style>
-
 	<div class="container">
-		
 		<div class="row" style="margin-top:60px;">
-			
-			<!-- Left content login -->
+			<!-- Left content -> login -->
 			<div class="span6">
-			
 				<%
 					String curUserID = (String)session.getAttribute("userid");
 					Integer tempUserID = 0;
@@ -122,8 +117,8 @@
 				<% } %>
 			</div>
 		
+			<!-- Right content -> Description -->
 			<div class="span6">
-
 				<form class="form-horizontal">
 					<legend>Tour Summary Order</legend>
 					<%
@@ -180,11 +175,8 @@
 						
 					<% } %>
 				</form>
-			
 			</div>
-		
 		</div> <!-- /row -->
-		
     </div> <!-- /container -->
 
 
@@ -192,12 +184,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		/* Initialize datepicker component */
 		$(".dateinput").on('mouseover',function(data){
 			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
 		});
 		$(".tourdetail").slideDown();
 		var tourprice = $("[name='tempTourPrice']").val();
 		$("[name='tourprice']").val(tourprice);
+		
+		/* bind form with validation engine */
 		$("#formLoginTour").validationEngine();
 	});
 </script>

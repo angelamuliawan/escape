@@ -1,11 +1,8 @@
 <%@ include file="master.jsp" %>
 <div class="container">
-	<!-- your content goes here -->
 	<div class="marketing">
-
 		<h1>Welcome to Escape</h1>
 		<p class="marketing-byline">Your Best Partner To Tour Around The World</p>
-
 		<div class="row-fluid">
 			<div class="span4">
 				<img class="marketing-img" src="assets/img/technology.jpg" style="width:400px;height:220px;">
@@ -22,18 +19,9 @@
 				<h2>Cheapest</h2>
 				<p>We never ask for additional charge. Customer can compare and prove the cheapest one.</p>
 			</div>
-
-			<div style="clear:both">
-
-			</div>
-
-
+			<div style="clear:both"></div>
 			<hr class="soften">
-
 		</div>
 	</div> <!-- </container> end of content -->
-
-	<%@ include file="footer.jsp" %>
-
-	<!-- included manually, not from bootstrap -->
+<%@ include file="footer.jsp" %>
 	

@@ -1,14 +1,10 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
 <div class="container">
-`		<!-- your content goes here -->
-	  <div class="marketing">
-
+	<div class="marketing">
 		<h1>Escape - Hotel</h1>
 		<p class="marketing-byline">Search Best Hotel With The Best Price</p>
-
 		<div class="row-fluid">
-
 			<%
 			String query = "SELECT hotelid, hotelname, phone, address, mh.cityid, mc.cityname, countryname, description, stars, hotelimage, ispromo FROM mshotel mh, mscity mc, mscountry mco where mh.cityid = mc.cityid AND mc.countryid = mco.countryid";
 
@@ -62,7 +58,6 @@
 			%>
 
 		</div>
-
 	</div>
 </div> <!-- </container> end of content -->
 
