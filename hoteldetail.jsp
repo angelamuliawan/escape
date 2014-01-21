@@ -1,5 +1,8 @@
 <%@ include file="master.jsp" %>
 <%@ include file="do/connect.jsp" %>
+
+<script type="text/javascript" src="assets/raty/lib/jquery.raty.min.js"></script>
+  
 <div class="container">
 	<%
 	String id = request.getParameter("hotelid");
@@ -7,11 +10,40 @@
 	if(id != null) hotelid = Integer.parseInt(id);
 	%>
 	<div class="span11 hotel-content">
+		
+		<!-- check if user has vote before -->
+		<%
+			String userid = (String)session.getAttribute("userid");
+			String query5 = "SELECT * FROM TrHotelRating WHERE UserID = '" + userid + "' AND HotelID = " + hotelid;
+			ResultSet rs5 = st.executeQuery(query5);
+			Integer exists = 0;
+			
+			// user exists
+			if(rs5.next()) {
+				exists = 1;
+			}
+			else
+				exists = 2;
+		%>
+		<%
+		/* Get rating from hotel */
+		String query3 = "SELECT (SUM(Rating) / COUNT(UserID)) AS totalstar FROM TrHotelRating WHERE HotelID = " + hotelid + " GROUP BY HotelID";
+		ResultSet rs3 = st.executeQuery(query3);
+		if(rs3.next()) {
+			rs3.first();
+			String tempRate = rs3.getString(1);
+		%>
+			<input type="hidden" name="totalRating" value="<%=tempRate%>" />
+		<%
+		} else { %>
+			<input type="hidden" name="totalRating" value="5" />
+		<%}%>
+	
 		<%
 			String query = "SELECT hotelid, hotelname, phone, address, mh.cityid, mc.cityname, countryname, description, stars, hotelimage, ispromo, propertylocation, RoomDesription, RecreationSpa, FoodHall, BusinessFacility, AreaInformation FROM mshotel mh, mscity mc, mscountry mco where mh.cityid = mc.cityid AND mc.countryid = mco.countryid and HotelID ="+hotelid;
 			ResultSet rs1 = st.executeQuery(query);
 			Integer numstar = 0;
-			Integer flag=1;
+			Integer flag = 1;
 			while(rs1.next())
 			{
 			numstar = rs1.getInt("stars");
@@ -26,9 +58,39 @@
 						<%if(rs1.getInt("ispromo") == 1) out.print("<label style='color:red; display:inline;' class='blink'>IN PROMO</label>");%>
 					</h5>
 					<p>
+						<!--
 						<%
 							for(int j = 0; j<numstar; j++) out.print("<img src='assets/img/icon/Star.png' width='20' height='20' style='display:inline'>");
-						%><br>
+						%><br><br>
+						-->
+						<form method="POST" action="do/dorate.jsp">
+							<div class="demo">
+								<!--<div id="scoreName-demo"></div>-->
+							</div>
+							
+							<input type="hidden" name="hotelid" value="<%=hotelid%>" />
+					
+					
+							<%
+							if(exists == 1) { %>
+								<br>
+								<div class="alert alert-info">
+									Thanks for rate this hotel.
+								</div>
+							<%} else if(userid!=null) {%>
+								<br>
+								<input type="submit" name="btnRate" class="btn btn-primary" value="Rate this" />
+							<%} else {%>
+								<br>
+								<div class="alert alert-info">
+									Please login first before start rate this hotel. If you're not a member, please <a href="register.jsp">register</a>
+								</div>
+							<% }%>
+							
+							
+						</form>
+						
+						<br><br>
 						<%=rs1.getString("description")%>
 					</p>
 			</div>
@@ -121,6 +183,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+	
+		var rating = $("[name='totalRating']").val();
+		rating = Math.round(rating);
+	
 		/* Initialize datepicker component */
 		$(".dateinput").on('mouseover',function(data){
 			$(".dateinput").datepicker({format:'yyyy-mm-dd'});
@@ -134,5 +200,31 @@
 		});
 		/* bind form with validation engine */
 		$("#formHotelDetail").validationEngine();
+		
+		/* Raty */
+		$.fn.raty.defaults.path = 'assets/raty/lib/img';
+
+		$('#default-demo').raty();
+		$('#score-demo').raty({ score: 5 });
+		$('#scoreName-demo').raty({ scoreName: 'entity[score]' });
+		$('#score-callback-demo').raty({
+			score: function() {
+			  return $(this).attr('data-score');
+			}
+		});
+		
+		$('.demo').raty({ score: rating });
+		
+		$('#iconRange-demo').raty({
+			path     : 'assets/raty/demo/img',
+			iconRange: [
+			  { range: 1, on: '1.png', off: '0.png' },
+			  { range: 2, on: '2.png', off: '0.png' },
+			  { range: 3, on: '3.png', off: '0.png' },
+			  { range: 4, on: '4.png', off: '0.png' },
+			  { range: 5, on: '5.png', off: '0.png' }
+			]
+		});
 	});
 </script>
+
