@@ -212,7 +212,7 @@
 						<div class="control-group ">
 							<label class="control-label">Transfer Date</label>
 							<div class="controls">
-								<input type="text" class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" name="transferdate" />
+								<input type="text" readonly class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" name="transferdate" />
 							</div>
 						</div>
 						

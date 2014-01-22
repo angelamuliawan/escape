@@ -6,8 +6,32 @@
 		<div class="marketing">
 		<h1>Escape - Flight</h1>
 		<p class="marketing-byline">Search Best Flight With The Best Price</p>
-
+		
 		<div class="row-fluid">
+			
+			<div class="span4 offset4">
+				<form class="form-horizontal" method="POST" action="do/dosortflight.jsp">
+					Sort By
+					<div class="control-group">
+						<select name="airline">
+							<option value="1">Airlines</option>
+							<option value="2">Price</option>
+						</select>
+					</div>
+					
+					<div class="control-group">
+						<select name="sortby">
+							<option value="1">Ascending</option>
+							<option value="2">Descending</option>
+						</select>
+					</div>
+					
+					<input class="btn btn-primary" value="Register" type="submit">
+
+				</form>
+			</div>
+			
+	
 			<table class="table table-bordered table-condensed">
 				<thead>
 					<tr>
@@ -24,6 +48,9 @@
 				<tbody>
 
 				<%
+				
+				String sort1 = request.getParameter();
+				
 				String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, FORMAT(date,'Long Date') as convDate, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid";
 
 				String cityfrom = request.getParameter("ddlCityFrom");

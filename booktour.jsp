@@ -45,7 +45,7 @@
 						<div class="control-group">
 							<label class="control-label">Password</label>
 							<div class="controls">
-								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
+								<input type="password" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
 							</div>
 						</div>
 						
@@ -106,7 +106,7 @@
 						<div class="control-group">
 							<label class="control-label">Password</label>
 							<div class="controls">
-								<input type="text" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
+								<input type="password" class="validate[required] text-input" data-prompt-position="topRight:-70" placeholder="Input Your Password" name="txtPassword" />
 							</div>
 						</div>
 						

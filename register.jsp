@@ -79,7 +79,7 @@
 					<div class="control-group ">
 						<label class="control-label">Birth Date</label>
 						<div class="controls">
-							<input class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" type="date" name="date"/>
+							<input readonly class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" type="text" name="date"/>
 						</div>
 					</div>
 					
@@ -93,14 +93,14 @@
 					<div class="control-group ">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-							<input class="validate[required] text-input" data-prompt-position="topRight:-70" type="text" name="phone" placeholder="Phone, number only" value="" />
+							<input class="validate[required, custom[integer]] text-input" data-prompt-position="topRight:-70" type="text" name="phone" placeholder="Phone, number only" value="" />
 						</div>
 					</div>
 
 					<div class="control-group ">
 						<label class="control-label">Mobile Phone</label>
 						<div class="controls">
-							<input class="validate[required] text-input" data-prompt-position="topRight:-70" type="text" name="mobilephone" placeholder="Mobile Phone, number only" value="" />
+							<input class="validate[required,custom[integer]] text-input" data-prompt-position="topRight:-70" type="text" name="mobilephone" placeholder="Mobile Phone, number only" value="" />
 						</div>
 					</div>
 					

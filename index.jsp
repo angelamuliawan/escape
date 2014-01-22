@@ -75,7 +75,7 @@
 								<div class="control-group ">
 									<label class="control-label">Date</label>
 									<div class="controls">
-										<input type="text" class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" name="dateFlight" placeholder="Date" />
+										<input type="text"readonly class="dateinput validate[required] text-input" data-prompt-position="topRight:-70" name="dateFlight" placeholder="Date" />
 									</div>
 								</div>
 								<div align="center" style="margin-left:-80px;">
