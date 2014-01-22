@@ -10,23 +10,23 @@
 		<div class="row-fluid">
 			
 			<div class="span4 offset4">
-				<form class="form-horizontal" method="POST" action="do/dosortflight.jsp">
+				<form class="form-horizontal" method="POST" action="flight.jsp">
 					Sort By
 					<div class="control-group">
-						<select name="airline">
-							<option value="1">Airlines</option>
-							<option value="2">Price</option>
+						<select name="sort1">
+							<option value="AirlineName">Airlines</option>
+							<option value="TicketPrice">Price</option>
 						</select>
 					</div>
 					
 					<div class="control-group">
-						<select name="sortby">
-							<option value="1">Ascending</option>
-							<option value="2">Descending</option>
+						<select name="sort2">
+							<option value="ASC">Ascending</option>
+							<option value="DESC">Descending</option>
 						</select>
 					</div>
 					
-					<input class="btn btn-primary" value="Register" type="submit">
+					<input class="btn btn-primary" value="Sort Flight" type="submit">
 
 				</form>
 			</div>
@@ -49,7 +49,8 @@
 
 				<%
 				
-				String sort1 = request.getParameter();
+				String sort1 = request.getParameter("sort1");
+				String sort2 = request.getParameter("sort2");
 				
 				String query = "SELECT ma.airlineid, ma.airlinename,  airlineimage, flightid, cityfromid, mcf.cityname AS CityFrom, citydestinationid, mcd.cityname AS CityDestination, date, FORMAT(date,'Long Date') as convDate, time, ticketprice, capacity, ispromo FROM msflight mf, msairline ma, mscity mcf, mscity mcd where mf.airlineid=ma.airlineid AND mcf.cityid=mf.cityfromid AND mcd.cityid=mf.citydestinationid";
 
@@ -66,8 +67,9 @@
 				if(dateflight != null)
 				query +=" AND date = '"+dateflight+"'";
 
-				query += " order by ticketprice asc, ispromo desc";
-
+				if(sort1 != null && sort2 != null)
+					query += " ORDER BY "+sort1+" "+sort2+" ";
+				
 				Integer i = 0;
 				Integer promo = 0;
 				ResultSet rs = st.executeQuery(query);
